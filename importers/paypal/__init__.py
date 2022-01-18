@@ -16,19 +16,7 @@ import csv
 import os
 import re
 
-def remove_accents(old):
-        """
-        Removes common accent characters, lower form.
-        Uses: regex.
-        """
-        new = old.lower()
-        new = re.sub(r'[àáâãäå]', 'a', new)
-        new = re.sub(r'[èéêë]', 'e', new)
-        new = re.sub(r'[ìíîï]', 'i', new)
-        new = re.sub(r'[òóôõö]', 'o', new)
-        new = re.sub(r'[ùúûü]', 'u', new)
-
-        return new
+from utilities import strings
 
 class PaypalImporter(importer.ImporterProtocol):
     def __init__(self, account, lastfour):
@@ -76,7 +64,7 @@ class PaypalImporter(importer.ImporterProtocol):
         with open(f.name, encoding="utf-8") as f:
             for index, row in enumerate(csv.DictReader(f)):
                 trans_date = parse(row['Date'], dayfirst=True).date()
-                trans_desc = titlecase(remove_accents(row['Description']))
+                trans_desc = titlecase(strings.remove_accents(row['Description']))
                 trans_amt  = row['Net'].replace(',', '.')
                 name = row['Name']
                 email = row['From Email Address']
