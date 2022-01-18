@@ -57,7 +57,7 @@ class PaypalImporter(importer.ImporterProtocol):
         return any(p in desc for p in payment_descriptions)
 
     def identify(self, f):
-        return re.match(r'^DC7PNE3HG8WE8.*\.CSV$', os.path.basename(f.name))
+        return re.match(r'^Paypal-.*\.CSV$', os.path.basename(f.name))
 
     def extract(self, f):
         entries = []
