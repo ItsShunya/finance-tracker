@@ -7,9 +7,14 @@ option "title" "Victor's Personal Finances"
 option "operating_currency" "EUR"
 option "operating_currency" "USD"
 
-
-* Commodities
-
+* Fava Settings
+1998-01-01 custom "fava-option" "auto-reload" "true"
+1998-01-01 custom "fava-option" "language" "en"
+1998-01-01 custom "fava-option" "locale" "de"
+1998-01-01 custom "fava-option" "default-page" "balance_sheet"
+1998-01-01 custom "fava-option" "auto-reload" "true"
+1998-01-01 custom "fava-option" "import-config" "config.py"
+1998-01-01 custom "fava-option" "import-dirs" "documents/Paypal"
 
 1998-01-01 commodity EUR
   name: "Euro"
