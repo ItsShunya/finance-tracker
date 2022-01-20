@@ -86,7 +86,7 @@ class CaixaBankImporter(importer.ImporterProtocol):
 
                 txn.postings.append(
                     data.Posting(self.account, amount.Amount(D(trans_amt),
-                        row['Currency']), None, None, None, None)
+                        row['Foreign currency']), None, None, None, None)
                 )
 
                 #if(name.__ne__("") or email.__ne__("") or bank.__ne__("")):
