@@ -4,11 +4,12 @@ import os, sys
 sys.path.append(os.path.dirname(__file__))
 
 # importers located in the importers directory
-from importers import paypal
+from importers import paypal, caixabank
 
 # Setting this variable provides a list of importer instances.
 CONFIG = [
     paypal.PaypalImporter('Assets:Online:Paypal:Checking'),
+    caixabank.CaixaBankImporter('Assets:EU:CaixaBank:Checking')
 ]
 
 # Override the header on extracted text (if desired).
