@@ -38,7 +38,7 @@ class PaypalImporter(importer.ImporterProtocol):
 
     def _check_account(self, name, email, bank, desc):
         restaurants = ["uber", "telepizza"]
-        games = ["terminal3", "cognosphere", "mihoyo"] # BDO, Genshin
+        games = ["terminal3", "cognosphere", "mihoyo", "daumgames", "kakao"] # BDO, Genshin
 
         if("caixabank" in bank.lower()):
             return "Assets:EU:CaixaBank:Checking"
