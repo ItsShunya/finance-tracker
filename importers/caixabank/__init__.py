@@ -56,7 +56,7 @@ class CaixaBankImporter(importer.ImporterProtocol):
         return any(p in desc for p in payment_descriptions)
 
     def identify(self, f):
-        return re.match(r'^Paypal-.*\.CSV$', os.path.basename(f.name))
+        return re.match(r'^CaixaBank-.*\.csv$', os.path.basename(f.name))
 
     def extract(self, f):
         entries = []
