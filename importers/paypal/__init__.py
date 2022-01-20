@@ -19,9 +19,8 @@ import re
 from utilities import strings
 
 class PaypalImporter(importer.ImporterProtocol):
-    def __init__(self, account, lastfour):
+    def __init__(self, account):
         self.account = account
-        self.lastfour = lastfour
 
     def _check_common_names(self, name):
         if(name.contains("Uber")):

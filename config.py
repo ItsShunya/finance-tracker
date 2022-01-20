@@ -8,7 +8,7 @@ from importers import paypal
 
 # Setting this variable provides a list of importer instances.
 CONFIG = [
-    paypal.PaypalImporter('Assets:Online:Paypal:Checking', '0000'),
+    paypal.PaypalImporter('Assets:Online:Paypal:Checking'),
 ]
 
 # Override the header on extracted text (if desired).
