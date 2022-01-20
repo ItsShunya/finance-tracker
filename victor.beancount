@@ -42,6 +42,11 @@ option "operating_currency" "USD"
 1998-05-26 open Expenses:Leisure:Other
 1998-05-26 open Expenses:Education
 1998-05-26 open Expenses:Other
+1998-05-26 open Expenses:Travel
+1998-05-26 open Expenses:Transport
+1998-05-26 open Expenses:Transfer:Arantxa
+1998-05-26 open Expenses:Clothes
+1998-05-26 open Expenses:Crypto
 
 * Income Accounts
 1998-05-26 open Income:Sales:Online
