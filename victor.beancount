@@ -62,312 +62,832 @@ option "operating_currency" "USD"
   Equity:Opening-Balances		-100.00 EUR
 
 ;; -*- mode: beancount -*-
-**** D:\Projects\Personal-Finances\documents\Paypal\csv\DC7PNE3HG8WE8-CSR-20210101000000-20211231235959-20220117121451.CSV
-
-; 2021-04-25 * "General Credit Card Deposit" ""
-;   Assets:Online:Paypal:Checking   3.69 EUR
-;   Assets:EU:CaixaBank:Checking   -3.69 EUR
-
-; 2021-04-25 * "Preapproved Payment Bill User Payment" ""
-;   Assets:Online:Paypal:Checking  -3.69 EUR
-;   Expenses:Food:Restaurant        3.69 EUR
-
-; 2021-04-27 * "Preapproved Payment Bill User Payment" ""
-;   Assets:Online:Paypal:Checking  -6.83 EUR
-;   Expenses:Food:Restaurant        6.83 EUR
-
-; 2021-04-27 * "General Credit Card Deposit" ""
-;   Assets:Online:Paypal:Checking   6.83 EUR
-;   Assets:EU:CaixaBank:Checking   -6.83 EUR
-
-; 2021-05-01 * "General Credit Card Deposit" ""
-;   Assets:Online:Paypal:Checking   5.29 EUR
-;   Assets:EU:CaixaBank:Checking   -5.29 EUR
-
-; 2021-05-01 * "Preapproved Payment Bill User Payment" ""
-;   Assets:Online:Paypal:Checking  -5.29 EUR
-;   Expenses:Food:Restaurant        5.29 EUR
-
-; 2021-05-25 * "General Credit Card Deposit" ""
-;   Assets:Online:Paypal:Checking   12.98 EUR
-;   Assets:EU:CaixaBank:Checking   -12.98 EUR
-
-; 2021-05-25 * "Preapproved Payment Bill User Payment" ""
-;   Assets:Online:Paypal:Checking  -12.98 EUR
-;   Expenses:Food:Restaurant        12.98 EUR
-
-; 2021-06-03 * "Express Checkout Payment" ""
-;   Assets:Online:Paypal:Checking  -6.00 EUR
-;   Expenses:Food:Restaurant        6.00 EUR
-
-; 2021-06-03 * "Bank Deposit to Pp Account" ""
-;   Assets:Online:Paypal:Checking   6.00 EUR
-;   Assets:EU:CaixaBank:Checking   -6.00 EUR
-
-; 2021-06-04 * "Preapproved Payment Bill User Payment" ""
-;   Assets:Online:Paypal:Checking  -10.14 EUR
-;   Expenses:Food:Restaurant        10.14 EUR
-
-; 2021-06-04 * "General Credit Card Deposit" ""
-;   Assets:Online:Paypal:Checking   10.14 EUR
-;   Assets:EU:CaixaBank:Checking   -10.14 EUR
-
-; 2021-06-10 * "Express Checkout Payment" ""
-;   Assets:Online:Paypal:Checking  -6.00 EUR
-;   Expenses:Food:Restaurant        6.00 EUR
-
-; 2021-06-10 * "Bank Deposit to Pp Account" ""
-;   Assets:Online:Paypal:Checking   6.00 EUR
-;   Assets:EU:CaixaBank:Checking   -6.00 EUR
-
-; 2021-06-24 * "General Credit Card Deposit" ""
-;   Assets:Online:Paypal:Checking   20.80 EUR
-;   Assets:EU:CaixaBank:Checking   -20.80 EUR
-
-; 2021-06-24 * "Preapproved Payment Bill User Payment" ""
-;   Assets:Online:Paypal:Checking  -20.80 EUR
-;   Expenses:Food:Restaurant        20.80 EUR
-
-; 2021-06-27 * "Website Payment" ""
-;   Assets:Online:Paypal:Checking  -30.00 EUR
-;   Expenses:Leisure:Games          30.00 EUR
-
-; 2021-06-27 * "Bank Deposit to Pp Account" ""
-;   Assets:Online:Paypal:Checking   30.00 EUR
-;   Assets:EU:CaixaBank:Checking   -30.00 EUR
-
-; 2021-06-28 * "Website Payment" ""
-;   Assets:Online:Paypal:Checking  -60.00 EUR
-;   Expenses:Leisure:Games          60.00 EUR
-
-; 2021-06-28 * "Bank Deposit to Pp Account" ""
-;   Assets:Online:Paypal:Checking   60.00 EUR
-;   Assets:EU:CaixaBank:Checking   -60.00 EUR
-
-; 2021-07-15 * "Express Checkout Payment" ""
-;   Assets:Online:Paypal:Checking  -6.00 EUR
-;   Expenses:Food:Restaurant        6.00 EUR
-
-; 2021-07-15 * "Bank Deposit to Pp Account" ""
-;   Assets:Online:Paypal:Checking   6.00 EUR
-;   Assets:EU:CaixaBank:Checking   -6.00 EUR
-
-; 2021-08-10 * "General Credit Card Deposit" ""
-;   Assets:Online:Paypal:Checking   16.63 EUR
-;   Assets:EU:CaixaBank:Checking   -16.63 EUR
-
-; 2021-08-10 * "Preapproved Payment Bill User Payment" ""
-;   Assets:Online:Paypal:Checking  -16.63 EUR
-;   Expenses:Food:Restaurant        16.63 EUR
-
-2021-08-12 * "Express Checkout Payment" ""
-  Assets:Online:Paypal:Checking  -43.45 EUR
-  Expenses:Other                  43.45 EUR
-
-; 2021-08-12 * "Bank Deposit to Pp Account" ""
-;   Assets:Online:Paypal:Checking   43.45 EUR
-;   Assets:EU:CaixaBank:Checking   -43.45 EUR
-
-; 2021-09-16 * "Preapproved Payment Bill User Payment" ""
-;   Assets:Online:Paypal:Checking  -12.58 EUR
-;   Expenses:Food:Restaurant        12.58 EUR
-
-; 2021-09-16 * "General Credit Card Deposit" ""
-;   Assets:Online:Paypal:Checking   12.58 EUR
-;   Assets:EU:CaixaBank:Checking   -12.58 EUR
-
-; 2021-09-20 * "General Credit Card Deposit" ""
-;   Assets:Online:Paypal:Checking   20.00 EUR
-;   Assets:EU:CaixaBank:Checking   -20.00 EUR
-
-; 2021-09-20 * "Website Payment" ""
-;   Assets:Online:Paypal:Checking  -20.00 EUR
-;   Expenses:Leisure:Games          20.00 EUR
-
-; 2021-09-24 * "Preapproved Payment Bill User Payment" ""
-;   Assets:Online:Paypal:Checking  -15.83 EUR
-;   Expenses:Food:Restaurant        15.83 EUR
-
-; 2021-09-24 * "General Credit Card Deposit" ""
-;   Assets:Online:Paypal:Checking   15.83 EUR
-;   Assets:EU:CaixaBank:Checking   -15.83 EUR
-
-; 2021-10-04 * "General Credit Card Deposit" ""
-;   Assets:Online:Paypal:Checking   4.99 EUR
-;   Assets:EU:CaixaBank:Checking   -4.99 EUR
-
-2021-10-04 * "Express Checkout Payment" ""
-  Assets:Online:Paypal:Checking  -4.99 EUR
-  Expenses:Leisure:Games          4.99 EUR
-
-; 2021-10-12 * "General Credit Card Deposit" ""
-;   Assets:Online:Paypal:Checking   24.70 EUR
-;   Assets:EU:CaixaBank:Checking   -24.70 EUR
-
-; 2021-10-12 * "Preapproved Payment Bill User Payment" ""
-;   Assets:Online:Paypal:Checking  -24.70 EUR
-;   Expenses:Food:Restaurant        24.70 EUR
-
-; 2021-10-17 * "Preapproved Payment Bill User Payment" ""
-;   Assets:Online:Paypal:Checking  -18.78 EUR
-;   Expenses:Food:Restaurant        18.78 EUR
-
-; 2021-10-17 * "General Credit Card Deposit" ""
-;   Assets:Online:Paypal:Checking   18.78 EUR
-;   Assets:EU:CaixaBank:Checking   -18.78 EUR
-
-2021-11-02 * "Express Checkout Payment" ""
-  Assets:Online:Paypal:Checking  -4.99 EUR
-  Expenses:Leisure:Games          4.99 EUR
-
-; 2021-11-02 * "General Credit Card Deposit" ""
-;   Assets:Online:Paypal:Checking   4.99 EUR
-;   Assets:EU:CaixaBank:Checking   -4.99 EUR
-
-; 2021-11-04 * "General Credit Card Deposit" ""
-;   Assets:Online:Paypal:Checking   6.00 EUR
-;   Assets:EU:CaixaBank:Checking   -6.00 EUR
-
-; 2021-11-04 * "Express Checkout Payment" ""
-;   Assets:Online:Paypal:Checking  -6.00 EUR
-;   Expenses:Food:Restaurant        6.00 EUR
+**** D:\Projects\Personal-Finances\documents\Paypal\csv\Paypal-20190601000000-20191231235959-20220118133321.CSV
+
+2019-06-05 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   4.82 EUR
+  Assets:EU:CaixaBank:Checking   -4.82 EUR
+
+2019-06-05 * "Black Desert Online" ""
+  Assets:Online:Paypal:Checking  -20.00 EUR
+  Expenses:Other                  20.00 EUR
+
+2019-06-08 * "StuDocu" ""
+  Assets:Online:Paypal:Checking  -11.97 EUR
+  Expenses:Education              11.97 EUR
+
+2019-06-08 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   11.97 EUR
+  Assets:EU:CaixaBank:Checking   -11.97 EUR
+
+2019-06-29 * "Express Checkout Payment" ""
+  Assets:Online:Paypal:Checking  -15.65 EUR
+  Expenses:Travel                 15.65 EUR
+
+2019-06-29 * "Bank Deposit to Pp Account" ""
+  Assets:Online:Paypal:Checking   15.65 EUR
+  Assets:EU:CaixaBank:Checking   -15.65 EUR
+
+2019-07-18 * "Express Checkout Payment" ""
+  Assets:Online:Paypal:Checking  -16.80 EUR
+  Expenses:Travel                 16.80 EUR
+
+2019-07-18 * "Bank Deposit to Pp Account" ""
+  Assets:Online:Paypal:Checking   16.80 EUR
+  Assets:EU:CaixaBank:Checking   -16.80 EUR
+
+2019-08-31 * "General Payment" ""
+  Assets:Online:Paypal:Checking  -4.15 EUR
+  Expenses:Other                  4.15 EUR
+
+2019-08-31 * "Bank Deposit to Pp Account" ""
+  Assets:Online:Paypal:Checking   4.15 EUR
+  Assets:EU:CaixaBank:Checking   -4.15 EUR
+
+2019-09-03 * "Ebay Auction Payment" ""
+  Assets:Online:Paypal:Checking  -16.99 EUR
+  Expenses:Other                  16.99 EUR
+
+2019-09-03 * "Bank Deposit to Pp Account" ""
+  Assets:Online:Paypal:Checking   16.99 EUR
+  Assets:EU:CaixaBank:Checking   -16.99 EUR
+
+2019-09-07 * "CoinBase" ""
+  Assets:Online:Paypal:Checking   8.04 EUR
+  Expenses:Crypto                -8.04 EUR
+
+2019-09-08 * "StuDocu" ""
+  Assets:Online:Paypal:Checking  -11.97 EUR
+  Expenses:Education              11.97 EUR
+
+2019-09-08 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking  3.93 EUR
+  Assets:EU:CaixaBank:Checking   -3.93 EUR
+
+2019-09-09 * "Payment Refund" ""
+  Assets:Online:Paypal:Checking   11.97 EUR
+  Expenses:Education             -11.97 EUR
+
+2019-09-09 * "General Credit Card Withdrawal" ""
+  Assets:Online:Paypal:Checking  -3.98 EUR
+  Assets:EU:CaixaBank:Checking    3.98 EUR
+
+2019-09-23 * "CoinBase" ""
+  Assets:Online:Paypal:Checking    8.06 EUR
+  Expenses:Crypto                 -8.06 EUR
+
+2019-10-11 * "CoinBase" ""
+  Assets:Online:Paypal:Checking    16.51 EUR
+  Expenses:Crypto                 -16.51 EUR
+
+2019-10-23 * "General Payment" ""
+  Assets:Online:Paypal:Checking   7.86 EUR
+  Income:Sales:Online            -7.86 EUR
+
+2019-10-23 * "General Payment" ""
+  Assets:Online:Paypal:Checking   9.21 USD
+  Income:Sales:Online            -9.21 USD
+
+2019-10-29 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   8.26 USD
+  Income:Sales:Online             -8.26 USD
+
+2019-11-02 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   4.43 EUR
+  Income:Sales:Online             -4.43 EUR
+
+2019-11-07 * "General Payment" ""
+  Assets:Online:Paypal:Checking   7.43 USD
+  Income:Sales:Online             -7.43 USD
+
+2019-11-08 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   6.36 USD
+  Income:Sales:Online            -6.36 USD
+
+2019-11-09 * "General Payment" ""
+  Assets:Online:Paypal:Checking   8.88 USD
+  Income:Sales:Online            -8.88 USD
+
+2019-11-12 * "General Payment" ""
+  Assets:Online:Paypal:Checking   0.99 USD
+  Income:Sales:Online            -0.99 USD
+
+2019-11-12 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   10.20 USD
+  Income:Sales:Online            -10.20 USD
+
+2019-11-13 * "General Withdrawal - Bank Account" ""
+  Assets:Online:Paypal:Checking  -4.00 EUR
+  Assets:EU:CaixaBank:Checking    4.00 EUR
+
+2019-11-13 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   8.81 USD
+  Income:Sales:Online             -8.81 USD
+
+2019-11-14 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   5.03 EUR
+  Income:Sales:Online            -5.03 EUR
+
+2019-11-14 * "General Payment" ""
+  Assets:Online:Paypal:Checking   4.97 USD
+  Income:Sales:Online            -4.97 USD
+
+2019-11-14 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   0.18 USD
+  Income:Sales:Online            -0.18 USD
+
+2019-11-15 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   3.42 USD
+  Income:Sales:Online            -3.42 USD
+
+2019-11-16 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   119.37 USD
+  Income:Sales:Online            -119.37 USD
+
+2019-11-18 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   8.81 USD
+  Income:Sales:Online            -8.81 USD
+
+2019-11-19 * "General Withdrawal - Bank Account" ""
+  Assets:Online:Paypal:Checking  -172.23 EUR
+  Assets:EU:CaixaBank:Checking    172.23 EUR
+
+2019-11-19 * "General Withdrawal - Bank Account" ""
+  Assets:Online:Paypal:Checking  -40.00 EUR
+  Assets:EU:CaixaBank:Checking    40.00 EUR
+
+2019-11-19 * "General Currency Conversion" ""
+  Assets:Online:Paypal:Checking  -196.89 USD @@ 172.23 EUR
+  Assets:Online:Paypal:Checking  172.23 EUR
+
+2019-11-21 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   7.90 EUR
+  Income:Sales:Online            -7.90 EUR
+
+2019-11-24 * "General Payment" ""
+  Assets:Online:Paypal:Checking   11.29 USD
+  Income:Sales:Online            -11.29 USD
+
+2019-11-25 * "General Payment" ""
+  Assets:Online:Paypal:Checking   22.52 USD
+  Income:Sales:Online            -22.52 USD
+
+2019-11-25 * "General Payment" ""
+  Assets:Online:Paypal:Checking   11.11 USD
+  Income:Sales:Online            -11.11 USD
+
+2019-11-26 * "General Payment" ""
+  Assets:Online:Paypal:Checking   23.50 USD
+  Income:Sales:Online            -23.50 USD
+
+2019-11-26 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   22.52 USD
+  Income:Sales:Online            -22.52 USD
 
-2021-11-13 * "Express Checkout Payment" ""
-  Assets:Online:Paypal:Checking  -9.99 EUR
-  Expenses:Leisure:Games          9.99 EUR
+2019-11-26 * "General Payment" ""
+  Assets:Online:Paypal:Checking   11.90 USD
+  Income:Sales:Online            -11.90 USD
 
-; 2021-11-13 * "Bank Deposit to Pp Account" ""
-;   Assets:Online:Paypal:Checking   9.99 EUR
-;   Assets:EU:CaixaBank:Checking   -9.99 EUR
+2019-11-26 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   11.11 USD
+  Income:Sales:Online            -11.11 USD
 
-2021-11-20 * "Mass Pay Payment" ""
-  Assets:Online:Paypal:Checking   46.32 EUR
-  Expenses:Other                 -46.32 EUR
+2019-11-26 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   45.35 USD
+  Income:Sales:Online            -45.35 USD
 
-; 2021-11-20 * "General Withdrawal - Bank Account" ""
-;   Assets:Online:Paypal:Checking  -46.32 EUR
-;   Assets:EU:CaixaBank:Checking    46.32 EUR
+2019-11-26 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   11.75 USD
+  Income:Sales:Online            -11.75 USD
 
-2021-11-25 * "Mobile Payment" ""
-  Assets:Online:Paypal:Checking   11.72 EUR
-  Income:Sold                    -11.72 EUR
+2019-11-26 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   22.52 USD
+  Income:Sales:Online            -22.52 USD
 
-2021-11-25 * "General Payment" ""
-  Assets:Online:Paypal:Checking   22.22 EUR
-  Income:Sold                    -22.22 EUR
+2019-11-27 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   11.75 USD
+  Income:Sales:Online            -11.75 USD
 
-2021-11-25 * "Mobile Payment" ""
-  Assets:Online:Paypal:Checking   11.01 EUR
-  Income:Sold                    -11.01 EUR
+2019-11-28 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   11.11 USD
+  Income:Sales:Online            -11.11 USD
 
-2021-11-25 * "Mobile Payment" ""
-  Assets:Online:Paypal:Checking   13.97 USD
-  Income:Sold                    -13.97 USD
+2019-11-28 * "General Payment" ""
+  Assets:Online:Paypal:Checking  -9.00 USD
+  Expenses:Other                  9.00 USD
 
-2021-11-25 * "General Payment" ""
-  Assets:Online:Paypal:Checking   13.02 USD
-  Income:Sold                    -13.02 USD
+2019-11-29 * "General Payment" ""
+  Assets:Online:Paypal:Checking   12.00 EUR
+  Income:Sales:Online            -12.00 EUR
 
-2021-11-25 * "Mobile Payment" ""
-  Assets:Online:Paypal:Checking   13.02 USD
-  Income:Sold                    -13.02 USD
+2019-11-30 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   10.16 EUR
+  Income:Sales:Online            -10.16 EUR
 
-2021-11-25 * "General Payment" ""
-  Assets:Online:Paypal:Checking   13.02 USD
-  Income:Sold                    -13.02 USD
+2019-11-30 * "General Payment" ""
+  Assets:Online:Paypal:Checking   11.94 USD
+  Income:Sales:Online            -11.94 USD
 
-2021-11-26 * "Mobile Payment" ""
-  Assets:Online:Paypal:Checking   12.82 EUR
-  Income:Sold                    -12.82 EUR
+2019-12-01 * "General Payment" ""
+  Assets:Online:Paypal:Checking   11.29 USD
+  Income:Sales:Online            -11.29 USD
 
-2021-11-26 * "Mobile Payment" ""
-  Assets:Online:Paypal:Checking   11.03 EUR
-  Income:Sold                    -11.03 EUR
+2019-12-05 * "Express Checkout Payment" ""
+  Assets:Online:Paypal:Checking  -24.20 EUR
+  Expenses:Travel                 24.20 EUR
 
-2021-11-26 * "General Payment" ""
-  Assets:Online:Paypal:Checking   37.74 USD
-  Income:Sold                    -37.74 USD
+2019-12-05 * "General Currency Conversion" ""
+  Assets:Online:Paypal:Checking  -28.02 USD @@ 24.20 EUR
+  Assets:Online:Paypal:Checking  24.20 EUR
 
-2021-11-26 * "Mobile Payment" ""
-  Assets:Online:Paypal:Checking   13.02 USD
-  Income:Sold                    -13.02 USD
+2019-12-07 * "General Payment" ""
+  Assets:Online:Paypal:Checking   12.00 EUR
+  Income:Sales:Online            -12.00 EUR
 
-2021-11-26 * "Mobile Payment" ""
-  Assets:Online:Paypal:Checking   13.02 USD
-  Income:Sold                    -13.02 USD
+2019-12-07 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   19.59 USD
+  Income:Sales:Online            -19.59 USD
 
-2021-11-27 * "Mobile Payment" ""
-  Assets:Online:Paypal:Checking   25.42 EUR
-  Income:Sold                    -25.42 EUR
+2019-12-08 * "General Payment" ""
+  Assets:Online:Paypal:Checking   9.21 USD
+  Income:Sales:Online            -9.21 USD
 
-2021-11-27 * "General Payment" ""
-  Assets:Online:Paypal:Checking   26.33 USD
-  Income:Sold                    -26.33 USD
+2019-12-08 * "General Payment" ""
+  Assets:Online:Paypal:Checking   4.40 USD
+  Income:Sales:Online            -4.40 USD
 
-2021-11-30 * "General Payment" ""
-  Assets:Online:Paypal:Checking  -182.00 EUR
-  Expenses:Other                 182.00 EUR
+2019-12-09 * "General Payment" ""
+  Assets:Online:Paypal:Checking   4.43 USD
+  Income:Sales:Online             -4.43 USD
 
-; 2021-11-30 * "General Withdrawal - Bank Account" ""
-;   Assets:Online:Paypal:Checking  -33.98 EUR
-;   Assets:EU:CaixaBank:Checking    33.98 EUR
+2019-12-13 * "General Payment" ""
+  Assets:Online:Paypal:Checking  -251.95 EUR
+  Expenses:Transfer:Arantxa       251.95 EUR
 
-; 2021-11-30 * "General Currency Conversion" ""
-;   Assets:Online:Paypal:Checking  -103.49 USD
-;   Assets:Online:Paypal:Checking  87.78 EUR
+2019-12-13 * "General Currency Conversion" ""
+  Assets:Online:Paypal:Checking  -236.96 USD @@ 203.96 EUR
+  Assets:Online:Paypal:Checking   203.96 EUR
 
-; 2021-11-30 * "General Currency Conversion" ""
-;   Assets:Online:Paypal:Checking  -39.65 USD
-;   Assets:Online:Paypal:Checking  33.98 EUR
+2019-12-19 * "General Payment" ""
+  Assets:Online:Paypal:Checking   11.94 USD
+  Income:Sales:Online            -11.94 USD
 
-2021-12-01 * "General Payment" ""
-  Assets:Online:Paypal:Checking   10.97 EUR
-  Income:Sold                    -10.97 EUR
+2019-12-23 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   1.15 EUR
+  Income:Sales:Online            -1.15 EUR
 
-; 2021-12-04 * "General Credit Card Deposit" ""
-;   Assets:Online:Paypal:Checking   4.99 EUR
-;   Assets:EU:CaixaBank:Checking   -4.99 EUR
+2019-12-26 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   16.82 USD
+  Income:Sales:Online            -16.82 USD
 
-; 2021-12-04 * "Express Checkout Payment" ""
+
+**** D:\Projects\Personal-Finances\documents\Paypal\csv\Paypal-20200101000000-20201231235959-20220117142516.CSV
+
+2020-01-02 * "General Payment" ""
+  Assets:Online:Paypal:Checking   9.41 USD
+  Income:Sales:Online            -9.41 USD
+
+2020-01-02 * "General Payment" ""
+  Assets:Online:Paypal:Checking   9.41 USD
+  Income:Sales:Online            -9.41 USD
+
+2020-01-10 * "Express Checkout Payment" ""
+  Assets:Online:Paypal:Checking  -14.50 EUR
+  Expenses:Travel                 14.50 EUR
+
+2020-01-10 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   9.69 USD
+  Income:Sales:Online            -9.69 USD
+
+2020-01-10 * "General Currency Conversion" ""
+  Assets:Online:Paypal:Checking  -15.46 USD @@ 13.35 EUR
+  Assets:Online:Paypal:Checking  13.35 EUR
+
+2020-01-11 * "General Payment" ""
+  Assets:Online:Paypal:Checking   9.36 USD
+  Income:Sales:Online            -9.36 USD
+
+2020-01-12 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   7.87 EUR
+  Income:Sales:Online            -7.87 EUR
+
+2020-01-12 * "General Payment" ""
+  Assets:Online:Paypal:Checking   9.16 EUR
+  Income:Sales:Online            -9.16 EUR
+
+2020-01-12 * "General Payment" ""
+  Assets:Online:Paypal:Checking   1.60 USD
+  Income:Sales:Online            -1.60 USD
+
+2020-01-12 * "General Payment" ""
+  Assets:Online:Paypal:Checking   9.36 USD
+  Income:Sales:Online            -9.36 USD
+
+2020-01-14 * "General Payment" ""
+  Assets:Online:Paypal:Checking   1.60 USD
+  Income:Sales:Online            -1.60 USD
+
+2020-01-15 * "General Payment" ""
+  Assets:Online:Paypal:Checking   2.79 USD
+  Income:Sales:Online            -2.79 USD
+
+2020-01-16 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   8.62 EUR
+  Income:Sales:Online            -8.62 EUR
+
+2020-01-26 * "Express Checkout Payment" ""
+  Assets:Online:Paypal:Checking  -5.83 EUR
+  Expenses:Leisure:Games          5.83 EUR
+
+2020-01-26 * "General Currency Conversion" ""
+  Assets:Online:Paypal:Checking  -6.72 USD @@ 5.83 EUR
+  Assets:Online:Paypal:Checking  5.83 EUR
+
+2020-01-27 * "Express Checkout Payment" ""
+  Assets:Online:Paypal:Checking  -12.01 EUR
+  Expenses:Food:Restaurant        12.01 EUR
+
+2020-01-27 * "General Currency Conversion" ""
+  Assets:Online:Paypal:Checking  -13.84 USD @@ 12.01 EUR
+  Assets:Online:Paypal:Checking  12.01 EUR
+
+2020-01-28 * "Payment Refund" ""
+  Assets:Online:Paypal:Checking   12.01 EUR
+  Expenses:Food:Restaurant       -12.01 EUR
+
+2020-01-28 * "General Currency Conversion" ""
+  Assets:Online:Paypal:Checking  13.84 USD @@ 12.01 EUR
+  Assets:Online:Paypal:Checking  -12.01 EUR
+
+2020-01-29 * "General Payment" ""
+  Assets:Online:Paypal:Checking   13.29 USD
+  Income:Sales:Online            -13.29 USD
+
+2020-01-30 * "General Payment" ""
+  Assets:Online:Paypal:Checking   7.31 USD
+  Income:Sales:Online            -7.31 USD
+
+2020-01-31 * "General Payment" ""
+  Assets:Online:Paypal:Checking   6.98 EUR
+  Income:Sales:Online            -6.98 EUR
+
+2020-02-02 * "General Payment" ""
+  Assets:Online:Paypal:Checking   6.99 USD
+  Income:Sales:Online            -6.99 USD
+
+2020-02-03 * "General Payment" ""
+  Assets:Online:Paypal:Checking   7.95 USD
+  Income:Sales:Online            -7.95 USD
+
+2020-02-04 * "General Payment" ""
+  Assets:Online:Paypal:Checking   12.15 EUR
+  Income:Sales:Online            -12.15 EUR
+
+2020-02-05 * "General Payment" ""
+  Assets:Online:Paypal:Checking   69.98 EUR
+  Income:Sales:Online            -69.98 EUR
+
+2020-02-21 * "General Payment" ""
+  Assets:Online:Paypal:Checking  -203.20 EUR
+  Expenses:Transfer:Arantxa       203.20 EUR
+
+2020-02-21 * "User Initiated Currency Conversion" ""
+  Assets:Online:Paypal:Checking  -98.65 USD @@ 88.44 EUR
+  Assets:Online:Paypal:Checking  88.44 EUR
+
+2020-03-25 * "Express Checkout Payment" ""
+  Assets:Online:Paypal:Checking  -54.90 EUR
+  Expenses:Leisure:Games          54.90 EUR
+
+2020-03-25 * "Bank Deposit to Pp Account" ""
+  Assets:Online:Paypal:Checking   54.90 EUR
+  Assets:EU:CaixaBank:Checking   -54.90 EUR
+
+2020-04-28 * "Transfer alquiler" ""
+  Assets:Online:Paypal:Checking   300.00 EUR
+  Expenses:Transfer:Arantxa      -300.00 EUR
+
+2020-04-28 * "General Withdrawal - Bank Account" ""
+  Assets:Online:Paypal:Checking  -300.00 EUR
+  Assets:EU:CaixaBank:Checking    300.00 EUR
+
+2020-05-06 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking   30.00 EUR
+  Income:Sales:Online            -30.00 EUR
+
+2020-05-14 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   10.40 EUR
+  Assets:EU:CaixaBank:Checking   -10.40 EUR
+
+2020-05-14 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking  -10.40 EUR
+  Expenses:Other                  10.40 EUR
+
+2020-05-14 * "Mobile Payment" ""
+  Assets:Online:Paypal:Checking  -30.00 EUR
+  Income:Sales:Online             30.00 EUR
+
+2020-05-28 * "Transfer Alquiler" ""
+  Assets:Online:Paypal:Checking   240.00 EUR
+  Expenses:Transfer:Arantxa      -240.00 EUR
+
+2020-05-28 * "General Withdrawal - Bank Account" ""
+  Assets:Online:Paypal:Checking  -240.00 EUR
+  Assets:EU:CaixaBank:Checking    240.00 EUR
+
+2020-06-15 * "Purchase CDKeys" ""
+  Assets:Online:Paypal:Checking  -48.39 EUR
+  Expenses:Leisure:Games          48.39 EUR
+
+2020-06-15 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   48.39 EUR
+  Assets:EU:CaixaBank:Checking   -48.39 EUR
+
+2020-06-28 * "Transfer alquiler" ""
+  Assets:Online:Paypal:Checking   300.00 EUR
+  Expenses:Transfer:Arantxa      -300.00 EUR
+
+2020-06-28 * "General Withdrawal - Bank Account" ""
+  Assets:Online:Paypal:Checking  -300.00 EUR
+  Assets:EU:CaixaBank:Checking    300.00 EUR
+
+2020-07-04 * "Express Checkout Payment" ""
+  Assets:Online:Paypal:Checking  -21.00 EUR
+  Expenses:Food:Restaurant        21.00 EUR
+
+2020-07-04 * "Bank Deposit to Pp Account" ""
+  Assets:Online:Paypal:Checking   21.00 EUR
+  Assets:EU:CaixaBank:Checking   -21.00 EUR
+
+2020-07-20 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   68.33 EUR
+  Assets:EU:CaixaBank:Checking   -68.33 EUR
+
+2020-07-20 * "General Payment" ""
+  Assets:Online:Paypal:Checking  -68.33 EUR
+  Expenses:Leisure:Games          68.33 EUR
+
+2020-07-30 * "Transfer alquiler" ""
+  Assets:Online:Paypal:Checking   250.00 EUR
+  Expenses:Transfer:Arantxa      -250.00 EUR
+
+2020-08-18 * "General Withdrawal - Bank Account" ""
+  Assets:Online:Paypal:Checking  -250.00 EUR
+  Assets:EU:CaixaBank:Checking    250.00 EUR
+
+2020-08-29 * "Transfer alquiler" ""
+  Assets:Online:Paypal:Checking   300.00 EUR
+  Expenses:Transfer:Arantxa      -300.00 EUR
+
+2020-08-30 * "General Withdrawal - Bank Account" ""
+  Assets:Online:Paypal:Checking  -300.00 EUR
+  Assets:EU:CaixaBank:Checking    300.00 EUR
+
+2020-09-29 * "Transfer alquiler" ""
+  Assets:Online:Paypal:Checking   300.00 EUR
+  Expenses:Transfer:Arantxa      -300.00 EUR
+
+2020-09-29 * "General Withdrawal - Bank Account" ""
+  Assets:Online:Paypal:Checking  -300.00 EUR
+  Assets:EU:CaixaBank:Checking    300.00 EUR
+
+2020-10-03 * "Preapproved Payment Bill User Payment" ""
+  Assets:Online:Paypal:Checking  -11.75 EUR
+  Expenses:Food:Restaurant        11.75 EUR
+
+2020-10-03 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   11.75 EUR
+  Assets:EU:CaixaBank:Checking   -11.75 EUR
+
+2020-10-29 * "Transfer alquiler" ""
+  Assets:Online:Paypal:Checking   300.00 EUR
+  Expenses:Transfer:Arantxa      -300.00 EUR
+
+2020-10-29 * "General Withdrawal - Bank Account" ""
+  Assets:Online:Paypal:Checking  -300.00 EUR
+  Assets:EU:CaixaBank:Checking    300.00 EUR
+
+2020-11-27 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   50.40 EUR
+  Assets:EU:CaixaBank:Checking   -50.40 EUR
+
+2020-11-27 * "Norma Comics" ""
+  Assets:Online:Paypal:Checking  -50.40 EUR
+  Expenses:Other                  50.40 EUR
+
+2020-12-14 * "Springfield" ""
+  Assets:Online:Paypal:Checking  -17.99 EUR
+  Expenses:Clothes                17.99 EUR
+
+2020-12-14 * "Bank Deposit to Pp Account" ""
+  Assets:Online:Paypal:Checking   17.99 EUR
+  Assets:EU:CaixaBank:Checking   -17.99 EUR
+
+
+**** D:\Projects\Personal-Finances\documents\Paypal\csv\Paypal-20210101000000-20211231235959-20220117121451.CSV
+
+2021-04-25 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   3.69 EUR
+  Assets:EU:CaixaBank:Checking   -3.69 EUR
+
+2021-04-25 * "Preapproved Payment Bill User Payment" ""
+  Assets:Online:Paypal:Checking  -3.69 EUR
+  Expenses:Food:Restaurant        3.69 EUR
+
+2021-04-27 * "Preapproved Payment Bill User Payment" ""
+  Assets:Online:Paypal:Checking  -6.83 EUR
+  Expenses:Food:Restaurant        6.83 EUR
+
+2021-04-27 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   6.83 EUR
+  Assets:EU:CaixaBank:Checking   -6.83 EUR
+
+2021-05-01 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   5.29 EUR
+  Assets:EU:CaixaBank:Checking   -5.29 EUR
+
+2021-05-01 * "Preapproved Payment Bill User Payment" ""
+  Assets:Online:Paypal:Checking  -5.29 EUR
+  Expenses:Food:Restaurant        5.29 EUR
+
+2021-05-25 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   12.98 EUR
+  Assets:EU:CaixaBank:Checking   -12.98 EUR
+
+2021-05-25 * "Preapproved Payment Bill User Payment" ""
+  Assets:Online:Paypal:Checking  -12.98 EUR
+  Expenses:Food:Restaurant        12.98 EUR
+
+2021-06-03 * "Express Checkout Payment" ""
+  Assets:Online:Paypal:Checking  -6.00 EUR
+  Expenses:Food:Restaurant        6.00 EUR
+
+2021-06-03 * "Bank Deposit to Pp Account" ""
+  Assets:Online:Paypal:Checking   6.00 EUR
+  Assets:EU:CaixaBank:Checking   -6.00 EUR
+
+2021-06-04 * "Preapproved Payment Bill User Payment" ""
+  Assets:Online:Paypal:Checking  -10.14 EUR
+  Expenses:Food:Restaurant        10.14 EUR
+
+2021-06-04 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   10.14 EUR
+  Assets:EU:CaixaBank:Checking   -10.14 EUR
+
+2021-06-10 * "Express Checkout Payment" ""
+  Assets:Online:Paypal:Checking  -6.00 EUR
+  Expenses:Food:Restaurant        6.00 EUR
+
+2021-06-10 * "Bank Deposit to Pp Account" ""
+  Assets:Online:Paypal:Checking   6.00 EUR
+  Assets:EU:CaixaBank:Checking   -6.00 EUR
+
+2021-06-24 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   20.80 EUR
+  Assets:EU:CaixaBank:Checking   -20.80 EUR
+
+2021-06-24 * "Preapproved Payment Bill User Payment" ""
+  Assets:Online:Paypal:Checking  -20.80 EUR
+  Expenses:Food:Restaurant        20.80 EUR
+
+2021-06-27 * "Black Desert Online" ""
+  Assets:Online:Paypal:Checking  -30.00 EUR
+  Expenses:Leisure:Games          30.00 EUR
+
+2021-06-27 * "Bank Deposit to Pp Account" ""
+  Assets:Online:Paypal:Checking   30.00 EUR
+  Assets:EU:CaixaBank:Checking   -30.00 EUR
+
+2021-06-28 * "Black Desert Online" ""
+  Assets:Online:Paypal:Checking  -60.00 EUR
+  Expenses:Leisure:Games          60.00 EUR
+
+2021-06-28 * "Bank Deposit to Pp Account" ""
+  Assets:Online:Paypal:Checking   60.00 EUR
+  Assets:EU:CaixaBank:Checking   -60.00 EUR
+
+2021-07-15 * "Express Checkout Payment" ""
+  Assets:Online:Paypal:Checking  -6.00 EUR
+  Expenses:Food:Restaurant        6.00 EUR
+
+2021-07-15 * "Bank Deposit to Pp Account" ""
+  Assets:Online:Paypal:Checking   6.00 EUR
+  Assets:EU:CaixaBank:Checking   -6.00 EUR
+
+2021-08-10 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   16.63 EUR
+  Assets:EU:CaixaBank:Checking   -16.63 EUR
+
+2021-08-10 * "Preapproved Payment Bill User Payment" ""
+  Assets:Online:Paypal:Checking  -16.63 EUR
+  Expenses:Food:Restaurant        16.63 EUR
+
+; 2021-08-12 * "Express Checkout Payment" ""
+;   Assets:Online:Paypal:Checking  -43.45 EUR
+;   Expenses:Other                  43.45 EUR
+
+2021-08-12 * "Bank Deposit to Pp Account" ""
+  Assets:Online:Paypal:Checking   43.45 EUR
+  Assets:EU:CaixaBank:Checking   -43.45 EUR
+
+2021-09-16 * "Preapproved Payment Bill User Payment" ""
+  Assets:Online:Paypal:Checking  -12.58 EUR
+  Expenses:Food:Restaurant        12.58 EUR
+
+2021-09-16 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   12.58 EUR
+  Assets:EU:CaixaBank:Checking   -12.58 EUR
+
+2021-09-20 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   20.00 EUR
+  Assets:EU:CaixaBank:Checking   -20.00 EUR
+
+2021-09-20 * "Website Payment" ""
+  Assets:Online:Paypal:Checking  -20.00 EUR
+  Expenses:Leisure:Games          20.00 EUR
+
+2021-09-24 * "Preapproved Payment Bill User Payment" ""
+  Assets:Online:Paypal:Checking  -15.83 EUR
+  Expenses:Food:Restaurant        15.83 EUR
+
+2021-09-24 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   15.83 EUR
+  Assets:EU:CaixaBank:Checking   -15.83 EUR
+
+2021-10-04 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   4.99 EUR
+  Assets:EU:CaixaBank:Checking   -4.99 EUR
+
+; 2021-10-04 * "Express Checkout Payment" ""
 ;   Assets:Online:Paypal:Checking  -4.99 EUR
 ;   Expenses:Leisure:Games          4.99 EUR
 
-2021-12-04 * "Mobile Payment" ""
-  Assets:Online:Paypal:Checking   12.32 USD
-  Income:Sold                    -12.32 USD
+2021-10-12 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   24.70 EUR
+  Assets:EU:CaixaBank:Checking   -24.70 EUR
 
-2021-12-04 * "Mobile Payment" ""
-  Assets:Online:Paypal:Checking   24.00 USD
-  Income:Sold                    -24.00 USD
+2021-10-12 * "Preapproved Payment Bill User Payment" ""
+  Assets:Online:Paypal:Checking  -24.70 EUR
+  Expenses:Food:Restaurant        24.70 EUR
 
-; 2021-12-07 * "User Initiated Currency Conversion" ""
-;   Assets:Online:Paypal:Checking  31.12 EUR
+2021-10-17 * "Preapproved Payment Bill User Payment" ""
+  Assets:Online:Paypal:Checking  -18.78 EUR
+  Expenses:Food:Restaurant        18.78 EUR
 
-2021-12-07 * "General Payment" ""
-  Assets:Online:Paypal:Checking  -42.09 EUR
-  Income:Sold                     42.09 EUR
+2021-10-17 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   18.78 EUR
+  Assets:EU:CaixaBank:Checking   -18.78 EUR
 
-; 2021-12-07 * "User Initiated Currency Conversion" ""
-;   Assets:Online:Paypal:Checking  -36.32 USD
+; 2021-11-02 * "Express Checkout Payment" ""
+;   Assets:Online:Paypal:Checking  -4.99 EUR
+;   Expenses:Leisure:Games          4.99 EUR
 
-; 2021-12-08 * "General Credit Card Deposit" ""
-;   Assets:Online:Paypal:Checking   13.44 EUR
-;   Assets:EU:CaixaBank:Checking   -13.44 EUR
+2021-11-02 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   4.99 EUR
+  Assets:EU:CaixaBank:Checking   -4.99 EUR
 
-; 2021-12-08 * "Preapproved Payment Bill User Payment" ""
-;   Assets:Online:Paypal:Checking  -13.44 EUR
-;   Expenses:Food:Restaurant        13.44 EUR
+2021-11-04 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   6.00 EUR
+  Assets:EU:CaixaBank:Checking   -6.00 EUR
 
-2021-12-09 * "General Payment" ""
-  Assets:Online:Paypal:Checking   11.11 USD
-  Income:Sold                    -11.11 USD
+2021-11-04 * "Express Checkout Payment" ""
+  Assets:Online:Paypal:Checking  -6.00 EUR
+  Expenses:Food:Restaurant        6.00 EUR
 
-2021-12-17 * "Mobile Payment" ""
-  Assets:Online:Paypal:Checking   6.50 EUR
-  Income:Sold                    -6.50 EUR
+; 2021-11-13 * "Express Checkout Payment" ""
+;   Assets:Online:Paypal:Checking  -9.99 EUR
+;   Expenses:Leisure:Games          9.99 EUR
 
-2021-12-18 * "Mobile Payment" ""
-  Assets:Online:Paypal:Checking   6.76 EUR
-  Income:Sold                    -6.76 EUR
+2021-11-13 * "Bank Deposit to Pp Account" ""
+  Assets:Online:Paypal:Checking   9.99 EUR
+  Assets:EU:CaixaBank:Checking   -9.99 EUR
+
+; 2021-11-20 * "Mass Pay Payment" ""
+;   Assets:Online:Paypal:Checking   46.32 EUR
+;   Expenses:Other                 -46.32 EUR
+
+2021-11-20 * "General Withdrawal - Bank Account" ""
+  Assets:Online:Paypal:Checking  -46.32 EUR
+  Assets:EU:CaixaBank:Checking    46.32 EUR
+
+; 2021-11-25 * "Mobile Payment" ""
+;   Assets:Online:Paypal:Checking   11.72 EUR
+;   Income:Sales:Online            -11.72 EUR
+
+; 2021-11-25 * "General Payment" ""
+;   Assets:Online:Paypal:Checking   22.22 EUR
+;   Income:Sales:Online            -22.22 EUR
+
+; 2021-11-25 * "Mobile Payment" ""
+;   Assets:Online:Paypal:Checking   11.01 EUR
+;   Income:Sales:Online            -11.01 EUR
+
+; 2021-11-25 * "Mobile Payment" ""
+;   Assets:Online:Paypal:Checking   13.97 USD
+;   Income:Sales:Online            -13.97 USD
+
+; 2021-11-25 * "General Payment" ""
+;   Assets:Online:Paypal:Checking   13.02 USD
+;   Income:Sales:Online            -13.02 USD
+
+; 2021-11-25 * "Mobile Payment" ""
+;   Assets:Online:Paypal:Checking   13.02 USD
+;   Income:Sales:Online            -13.02 USD
+
+; 2021-11-25 * "General Payment" ""
+;   Assets:Online:Paypal:Checking   13.02 USD
+;   Income:Sales:Online            -13.02 USD
+
+; 2021-11-26 * "Mobile Payment" ""
+;   Assets:Online:Paypal:Checking   12.82 EUR
+;   Income:Sales:Online            -12.82 EUR
+
+; 2021-11-26 * "Mobile Payment" ""
+;   Assets:Online:Paypal:Checking   11.03 EUR
+;   Income:Sales:Online            -11.03 EUR
+
+; 2021-11-26 * "General Payment" ""
+;   Assets:Online:Paypal:Checking   37.74 USD
+;   Income:Sales:Online            -37.74 USD
+
+; 2021-11-26 * "Mobile Payment" ""
+;   Assets:Online:Paypal:Checking   13.02 USD
+;   Income:Sales:Online            -13.02 USD
+
+; 2021-11-26 * "Mobile Payment" ""
+;   Assets:Online:Paypal:Checking   13.02 USD
+;   Income:Sales:Online            -13.02 USD
+
+; 2021-11-27 * "Mobile Payment" ""
+;   Assets:Online:Paypal:Checking   25.42 EUR
+;   Income:Sales:Online            -25.42 EUR
+
+; 2021-11-27 * "General Payment" ""
+;   Assets:Online:Paypal:Checking   26.33 USD
+;   Income:Sales:Online            -26.33 USD
+
+2021-11-30 * "Transfer Arantxa" ""
+  Assets:Online:Paypal:Checking  -182.00 EUR
+  Expenses:Transfer:Arantxa       182.00 EUR
+
+2021-11-30 * "General Withdrawal - Bank Account" ""
+  Assets:Online:Paypal:Checking  -33.98 EUR
+  Assets:EU:CaixaBank:Checking    33.98 EUR
+
+2021-11-30 * "General Currency Conversion" ""
+  Assets:Online:Paypal:Checking  -103.49 USD @@ 87.78 EUR
+  Assets:Online:Paypal:Checking  87.78 EUR
+
+2021-11-30 * "General Currency Conversion" ""
+  Assets:Online:Paypal:Checking  -39.65 USD @@ 33.98 EUR
+  Assets:Online:Paypal:Checking  33.98 EUR
+
+; 2021-12-01 * "General Payment" ""
+;   Assets:Online:Paypal:Checking   10.97 EUR
+;   Income:Sales:Online            -10.97 EUR
+
+2021-12-04 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   4.99 EUR
+  Assets:EU:CaixaBank:Checking   -4.99 EUR
+
+2021-12-04 * "Express Checkout Payment" ""
+  Assets:Online:Paypal:Checking  -4.99 EUR
+  Expenses:Leisure:Games          4.99 EUR
+
+; 2021-12-04 * "Mobile Payment" ""
+;   Assets:Online:Paypal:Checking   12.32 USD
+;   Income:Sales:Online            -12.32 USD
+
+; 2021-12-04 * "Mobile Payment" ""
+;   Assets:Online:Paypal:Checking   24.00 USD
+;   Income:Sales:Online            -24.00 USD
+
+; 2021-12-07 * "Transfer Arantxa" ""
+;   Assets:Online:Paypal:Checking  -42.09 EUR
+;   Expenses:Transfer:Arantxa       42.09 EUR
+
+2021-12-07 * "User Initiated Currency Conversion" ""
+  Assets:Online:Paypal:Checking  -36.32 USD @@ 31.12 EUR
+  Assets:Online:Paypal:Checking  31.12 EUR
+
+2021-12-08 * "General Credit Card Deposit" ""
+  Assets:Online:Paypal:Checking   13.44 EUR
+  Assets:EU:CaixaBank:Checking   -13.44 EUR
+
+2021-12-08 * "Preapproved Payment Bill User Payment" ""
+  Assets:Online:Paypal:Checking  -13.44 EUR
+  Expenses:Food:Restaurant        13.44 EUR
+
+; 2021-12-09 * "General Payment" ""
+;   Assets:Online:Paypal:Checking   11.11 USD
+;   Income:Sales:Online            -11.11 USD
+
+; 2021-12-17 * "Mobile Payment" ""
+;   Assets:Online:Paypal:Checking   6.50 EUR
+;   Income:Sales:Online            -6.50 EUR
+
+; 2021-12-18 * "Mobile Payment" ""
+;   Assets:Online:Paypal:Checking   6.76 EUR
+;   Income:Sales:Online            -6.76 EUR
 
 
