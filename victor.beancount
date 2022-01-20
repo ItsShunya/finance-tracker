@@ -32,6 +32,7 @@ option "operating_currency" "USD"
 1998-05-26 open Assets:Online:Paypal:Checking
 1998-05-26 open Assets:EU:Hand:Checking
 1998-05-26 open Equity:Opening-Balances
+1998-05-26 open Assets:Crypto
 
 * Expenses Accounts
 1998-05-26 open Expenses:Food:Restaurant
