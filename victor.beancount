@@ -44,7 +44,9 @@ option "operating_currency" "USD"
 1998-05-26 open Expenses:Other
 
 * Income Accounts
-1998-05-26 open Income:Sold
+1998-05-26 open Income:Sales:Online
+1998-05-26 open Income:Sales:Wallapop
+1998-05-26 open Income:Salary
 
 2020-01-01 * "Opening Balance for checking account"
   Assets:EU:CaixaBank:Checking           1000.00 USD
