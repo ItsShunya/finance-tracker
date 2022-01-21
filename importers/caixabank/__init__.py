@@ -36,18 +36,25 @@ class CaixaBankImporter(importer.ImporterProtocol):
             return "Telepizza"
         return ""
 
-    def _check_account(self, name, email, bank, desc):
-        restaurants = ["uber", "telepizza"]
-        games = ["terminal3", "cognosphere", "mihoyo", "daumgames", "kakao"] # BDO, Genshin
+    def _check_account(self, desc):
+        restaurants = ["uber", "telepizza", "mcdonald", "kfc", "burger", "just", "pizza", "dominos"]
+        games = ["terminal3", "cognosphere", "mihoyo", "daumgames", "kakao", "google pl"] # BDO, Genshin
+        psicol = ["sesiones", "sesion", "sesin"]
 
-        if("caixabank" in bank.lower()):
-            return "Assets:EU:CaixaBank:Checking"
-        if(any(r in name for r in restaurants) or any(r in email for r in restaurants)):
+        if("neuroelectrics" in desc.lower()):
+            return "Income:Salary"
+        elif("eduardo luque" in desc.lower()):
+            return "Income:Allowance"
+        elif("mercadona" in desc.lower()):
+            return "Expenses:Food:Groceries"
+        elif("netflix.com" in desc.lower()):
+            return "Expenses:Leisure:Other"
+        elif(any(p in desc.lower() for p in psicol)):
+            return "Expenses:Health:Therapy"
+        elif(any(r in desc.lower() for r in restaurants)):
             return "Expenses:Food:Restaurant"
-        elif(any(g in name for g in games) or any(g in email for g in games)):
+        elif(any(g in desc.lower() for g in games)):
             return "Expenses:Leisure:Games"
-        elif(self._is_payment(desc)):
-            return "Income:Sold"
         else:
             return "Expenses:Other"
 
