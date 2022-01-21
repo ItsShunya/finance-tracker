@@ -86,11 +86,10 @@ class CaixaBankImporter(importer.ImporterProtocol):
                         row['Foreign currency']), None, None, None, None)
                 )
 
-                #if(name.__ne__("") or email.__ne__("") or bank.__ne__("")):
-                #    txn.postings.append(
-                #        data.Posting(self._check_account(name, email, bank, trans_desc), -amount.Amount(D(trans_amt),
-                #        row['Currency']), None, None, None, None)
-                #)
+                txn.postings.append(
+                    data.Posting(self._check_account(trans_desc), -amount.Amount(D(trans_amt),
+                    row['Foreign currency']), None, None, None, None)
+                )
                 
                 entries.append(txn)
 
