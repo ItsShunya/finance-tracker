@@ -62,11 +62,8 @@ class CaixaBankImporter(importer.ImporterProtocol):
                 trans_date = parse(row['Transaction date'], dayfirst=True).date()
                 trans_desc1 = titlecase(strings.remove_accents(row['Complementary concept 1']))
                 trans_desc2 = titlecase(strings.remove_accents(row['Complementary concept 5']))
-                trans_desc = trans_desc1 + trans_desc2
-                trans_amt  = D(row['In payment (+)'].replace(',', '.')) - D(row['Expenses (-)'].replace(',', '.'))
-                #name = row['Name']
-                #email = row['From Email Address']
-                #bank = row['Bank Name']
+                trans_desc = re.sub(' +', ' ', trans_desc1 + trans_desc2)
+                trans_amt  = D(row['In payment (+)'].replace('.', '!').replace(',', '.').replace('!', ',')) - D(row['Expenses (-)'].replace('.', '!').replace(',', '.').replace('!', ','))
 
                 meta = data.new_metadata(f.name, index)
 
