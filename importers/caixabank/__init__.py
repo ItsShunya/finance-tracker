@@ -51,9 +51,6 @@ class CaixaBankImporter(importer.ImporterProtocol):
         else:
             return "Expenses:Other"
 
-    def _is_payment(self, desc):
-        payment_descriptions = [ "Mobile Payment", "General Payment"]
-        return any(p in desc for p in payment_descriptions)
 
     def identify(self, f):
         return re.match(r'^CaixaBank-.*\.csv$', os.path.basename(f.name))
