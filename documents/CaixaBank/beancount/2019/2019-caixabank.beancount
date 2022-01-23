@@ -1,0 +1,252 @@
+
+2019-01-14 * " Media Markt: Teclado tablet" ""
+  Assets:EU:CaixaBank:Checking  -41.31 EUR
+  Expenses:Other                 41.31 EUR
+
+2019-01-15 * "Bizum Arantxa: Viaje Londres " ""
+  Assets:EU:CaixaBank:Checking   181.00 EUR
+  Expenses:Other                -181.00 EUR
+
+2019-01-17 * " Renfe " ""
+  Assets:EU:CaixaBank:Checking  -10.20 EUR
+  Expenses:Transport             10.20 EUR
+
+2019-01-19 * " Netflix " ""
+  Assets:EU:CaixaBank:Checking  -13.99 EUR
+  Expenses:Leisure:Other         13.99 EUR
+
+2019-01-27 * " Ac South Airside " ""
+  Assets:EU:CaixaBank:Checking  -60.31 EUR
+  Expenses:Travel                60.31 EUR
+
+2019-01-29 * " Spotify  " ""
+  Assets:EU:CaixaBank:Checking  -9.99 EUR
+  Expenses:Leisure:Other         9.99 EUR
+
+2019-02-01 * "Coreagencia Catalana De La Joventut Carnet Jove 45790929e-Luque Martinez Victor " ""
+  Assets:EU:CaixaBank:Checking  -7.90 EUR
+  Expenses:Financial:Fees        7.90 EUR
+
+2019-02-03 * " W H Smith " ""
+  Assets:EU:CaixaBank:Checking  -5.05 EUR
+  Expenses:Travel                5.05 EUR
+
+2019-02-03 * " Boots 2120 " ""
+  Assets:EU:CaixaBank:Checking  -1.49 EUR
+  Expenses:Travel                1.49 EUR
+
+2019-02-13 * " Bershka " ""
+  Assets:EU:CaixaBank:Checking  -25.19 EUR
+  Expenses:Clothes               25.19 EUR
+
+2019-02-19 * " Netflix " ""
+  Assets:EU:CaixaBank:Checking  -13.99 EUR
+  Expenses:Leisure:Other         13.99 EUR
+
+2019-02-28 * " Spotify  " ""
+  Assets:EU:CaixaBank:Checking  -9.99 EUR
+  Expenses:Leisure:Other         9.99 EUR
+
+2019-03-01 * " Alsa Internet " ""
+  Assets:EU:CaixaBank:Checking  -21.35 EUR
+  Expenses:Travel                21.35 EUR
+
+2019-03-06 * " Yelmo Films s.l. " ""
+  Assets:EU:CaixaBank:Checking  -11.80 EUR
+  Expenses:Leisure:Cinema        11.80 EUR
+
+2019-03-12 * " Casa Elementos " ""
+  Assets:EU:CaixaBank:Checking  -11.70 EUR
+  Expenses:Other                 11.70 EUR
+
+2019-03-16 * " Alsa Internet " ""
+  Assets:EU:CaixaBank:Checking  -14.45 EUR
+  Expenses:Travel                14.45 EUR
+
+2019-03-19 * " Netflix " ""
+  Assets:EU:CaixaBank:Checking  -13.99 EUR
+  Expenses:Leisure:Other         13.99 EUR
+
+2019-03-22 * " Burguer King Lill " ""
+  Assets:EU:CaixaBank:Checking  -13.84 EUR
+  Expenses:Food:Restaurant       13.84 EUR
+
+2019-03-29 * " Spotify " ""
+  Assets:EU:CaixaBank:Checking  -9.99 EUR
+  Expenses:Leisure:Other         9.99 EUR
+
+2019-04-06 * " Alsa" ""
+  Assets:EU:CaixaBank:Checking  -40.05 EUR
+  Expenses:Travel                40.05 EUR
+
+2019-04-06 * " Amazon Prime " ""
+  Assets:EU:CaixaBank:Checking  -19.95 EUR
+  Expenses:Other                 19.95 EUR
+
+2019-04-09 * " Amazon Prime " ""
+  Assets:EU:CaixaBank:Checking   19.95 EUR
+  Expenses:Other                -19.95 EUR
+
+2019-04-17 * " Cines Lys " ""
+  Assets:EU:CaixaBank:Checking  -9.20 EUR
+  Expenses:Leisure:Cinema         9.20 EUR
+
+2019-04-19 * " Netflix " ""
+  Assets:EU:CaixaBank:Checking  -13.99 EUR
+  Expenses:Leisure:Other         13.99 EUR
+
+2019-04-27 * " Alsa " ""
+  Assets:EU:CaixaBank:Checking  -18.25 EUR
+  Expenses:Other                 18.25 EUR
+
+2019-05-01 * " Yelmo Films s.l. " ""
+  Assets:EU:CaixaBank:Checking  -11.80 EUR
+  Expenses:Leisure:Cinema        11.80 EUR
+
+2019-05-19 * " netflix.com " ""
+  Assets:EU:CaixaBank:Checking  -13.99 EUR
+  Expenses:Leisure:Other         13.99 EUR
+
+2019-06-19 * " netflix.com " ""
+  Assets:EU:CaixaBank:Checking  -13.99 EUR
+  Expenses:Leisure:Other         13.99 EUR
+
+2019-06-20 * " Game Stores Iberi " ""
+  Assets:EU:CaixaBank:Checking  -28.95 EUR
+  Expenses:Leisure:Games         28.95 EUR
+
+2019-07-19 * " netflix.com " ""
+  Assets:EU:CaixaBank:Checking  -13.99 EUR
+  Expenses:Leisure:Other         13.99 EUR
+
+2019-08-03 * " Ingres Caixer " ""
+  Assets:EU:CaixaBank:Checking   200.00 EUR
+  Assets:EU:Hand:Checking       -200.00 EUR
+
+2019-08-08 * " Alsa" ""
+  Assets:EU:CaixaBank:Checking  -37.10 EUR
+  Expenses:Travel                37.10 EUR
+
+2019-08-09 * " McDonalds Valenci " ""
+  Assets:EU:CaixaBank:Checking  -2.80 EUR
+  Expenses:Food:Restaurant       2.80 EUR
+
+2019-08-11 * " Burger King Nuevo " ""
+  Assets:EU:CaixaBank:Checking  -5.70 EUR
+  Expenses:Food:Restaurant       5.70 EUR
+
+2019-08-14 * " Burguer King Cort " ""
+  Assets:EU:CaixaBank:Checking  -4.99 EUR
+  Expenses:Food:Restaurant       4.99 EUR
+
+2019-08-17 * " Bk Ruzafa " ""
+  Assets:EU:CaixaBank:Checking  -1.00 EUR
+  Expenses:Food:Restaurant       1.00 EUR
+
+2019-08-19 * " netflix.com " ""
+  Assets:EU:CaixaBank:Checking  -13.99 EUR
+  Expenses:Leisure:Other         13.99 EUR
+
+2019-08-23 * " Paniacos and Co " ""
+  Assets:EU:CaixaBank:Checking  -5.30 EUR
+  Expenses:Food:Restaurant       5.30 EUR
+
+2019-08-23 * " 0163-Consum v. Pa " ""
+  Assets:EU:CaixaBank:Checking  -3.30 EUR
+  Expenses:Food:Groceries        3.30 EUR
+
+2019-08-31 * " Farmacia De l'Est " ""
+  Assets:EU:CaixaBank:Checking  -7.95 EUR
+  Expenses:Food:Groceries        7.95 EUR
+
+2019-09-01 * " Market Castedef " ""
+  Assets:EU:CaixaBank:Checking  -11.56 EUR
+  Expenses:Food:Groceries        11.56 EUR
+
+2019-09-02 * " Caprabo 7883 " ""
+  Assets:EU:CaixaBank:Checking  -8.08 EUR
+  Expenses:Food:Groceries        8.08 EUR
+
+2019-09-02 * " Mgp*wallapop " ""
+  Assets:EU:CaixaBank:Checking  -10.90 EUR
+  Expenses:Leisure:Games         10.90 EUR
+
+2019-09-11 * " Ingres Caixer " ""
+  Assets:EU:Hand:Checking        480.00 EUR
+  Expenses:Gifts                -480.00 EUR
+
+2019-09-11 * " Ingres Caixer " ""
+  Assets:EU:CaixaBank:Checking   500.00 EUR
+  Assets:EU:Hand:Checking       -500.00 EUR
+
+2019-09-12 * " Pc Componentes: Laptop regalo papi " ""
+  Assets:EU:CaixaBank:Checking  -499.00 EUR
+  Expenses:Gifts                 499.00 EUR
+
+2019-09-13 * " Revolut " ""
+  Assets:EU:CaixaBank:Checking  -10.00 EUR
+  Expenses:Other                 10.00 EUR
+
+2019-09-13 * " Revolut" ""
+  Assets:EU:CaixaBank:Checking  -1.00 EUR
+  Expenses:Other                 1.00 EUR
+
+2019-09-16 * "The Currency Cloud LTD transf.divisas " ""
+  Assets:EU:CaixaBank:Checking   20.00 EUR
+  Expenses:Crypto               -20.00 EUR
+
+2019-09-19 * " netflix.com " ""
+  Assets:EU:CaixaBank:Checking  -7.00 EUR
+  Expenses:Leisure:Other         7.00 EUR
+
+2019-09-23 * " Revolut*1132* " ""
+  Assets:EU:CaixaBank:Checking   1.00 EUR
+  Expenses:Other                -1.00 EUR
+
+2019-10-04 * "Dario Luque Martinez Netflix " ""
+  Assets:EU:CaixaBank:Checking   5.00 EUR
+  Income:Other                  -5.00 EUR
+
+2019-10-08 * " Ficomic " ""
+  Assets:EU:CaixaBank:Checking  -20.00 EUR
+  Expenses:Leisure:Games         20.00 EUR
+
+2019-10-18 * " Nintendo of Europ " ""
+  Assets:EU:CaixaBank:Checking  -10.00 EUR
+  Expenses:Leisure:Games         10.00 EUR
+
+2019-10-19 * " netflix.com " ""
+  Assets:EU:CaixaBank:Checking  -6.84 EUR
+  Expenses:Leisure:Other         6.84 EUR
+
+2019-11-11 * " aliexpress.com " ""
+  Assets:EU:CaixaBank:Checking  -42.67 EUR
+  Expenses:Other                 42.67 EUR
+
+2019-11-13 * "Bizum a Eles: Switch Online x2 " ""
+  Assets:EU:CaixaBank:Checking  -8.80 EUR
+  Expenses:Leisure:Games         8.80 EUR
+
+2019-11-20 * " netflix.com " ""
+  Assets:EU:CaixaBank:Checking  -6.96 EUR
+  Expenses:Leisure:Other         6.96 EUR
+
+2019-12-01 * " Amzn MKTP Es " ""
+  Assets:EU:CaixaBank:Checking  -24.98 EUR
+  Expenses:Other                 24.98 EUR
+
+2019-12-11 * " Sephora Cosmetico " ""
+  Assets:EU:CaixaBank:Checking  -30.95 EUR
+  Expenses:Gifts                 30.95 EUR
+
+2019-12-20 * " netflix.com " ""
+  Assets:EU:CaixaBank:Checking  -6.66 EUR
+  Expenses:Leisure:Other         6.66 EUR
+
+2019-12-21 * " amazon.es " ""
+  Assets:EU:CaixaBank:Checking  -39.99 EUR
+  Expenses:Leisure:Games         39.99 EUR
+
+2019-12-31 * " Amazon Prime " ""
+  Assets:EU:CaixaBank:Checking  -36.00 EUR
+  Expenses:Other                 36.00 EUR
