@@ -8,6 +8,7 @@ beancount = "*"
 titlecase = "*"
 pipfile = "*"
 fava = "*"
+ofxtools = "*"
 
 [dev-packages]
 
