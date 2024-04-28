@@ -54,7 +54,9 @@ option "operating_currency" "USD"
 1998-05-26 open Expenses:House:Furniture
 1998-05-26 open Expenses:Donations
 1998-05-26 open Expenses:Health:Therapy
+1998-05-26 open Expenses:Health:Medicines
 1998-05-26 open Expenses:Gifts
+1998-05-26 open Expenses:Sports
 
 * Income Accounts
 1998-05-26 open Income:Sales:Online
@@ -82,3 +84,9 @@ include "documents/Paypal/beancount/2020/2020-paypal.beancount"
 
 include "documents/CaixaBank/beancount/2021/2021-caixabank.beancount"
 include "documents/Paypal/beancount/2021/2021-paypal.beancount"
+
+*************************    2022    *************************
+include "documents/CaixaBank/beancount/2022/2022-caixabank.beancount"
+
+*************************    2023    *************************
+include "documents/CaixaBank/beancount/2023/2023-caixabank.beancount"
