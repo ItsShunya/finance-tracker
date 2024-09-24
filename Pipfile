@@ -9,6 +9,7 @@ titlecase = "*"
 pipfile = "*"
 fava = "*"
 ofxtools = "*"
+fava-dashboards = {git = "https://github.com/andreasgerstmayr/fava-dashboards.git"}
 
 [dev-packages]
 
