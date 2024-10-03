@@ -71,22 +71,21 @@ option "operating_currency" "USD"
 
 *************************    2019    *************************
 
-include "documents/CaixaBank/beancount/2019/2019-caixabank.beancount"
-include "documents/Paypal/beancount/2019/2019-paypal.beancount"
+include "documents/CaixaBank/beancount/2019/2019-caixabank.bean"
+include "documents/Paypal/beancount/2019/2019-paypal.bean"
 
+*************************    2020    *************************
+
+include "documents/CaixaBank/beancount/2020/2020-caixabank.bean"
+include "documents/Paypal/beancount/2020/2020-paypal.bean"
 
 *************************    2021    *************************
 
-include "documents/CaixaBank/beancount/2020/2020-caixabank.beancount"
-include "documents/Paypal/beancount/2020/2020-paypal.beancount"
-
-*************************    2021    *************************
-
-include "documents/CaixaBank/beancount/2021/2021-caixabank.beancount"
-include "documents/Paypal/beancount/2021/2021-paypal.beancount"
+include "documents/CaixaBank/beancount/2021/2021-caixabank.bean"
+include "documents/Paypal/beancount/2021/2021-paypal.bean"
 
 *************************    2022    *************************
-include "documents/CaixaBank/beancount/2022/2022-caixabank.beancount"
+include "documents/CaixaBank/beancount/2022/2022-caixabank.bean"
 
 *************************    2023    *************************
-include "documents/CaixaBank/beancount/2023/2023-caixabank.beancount"
+include "documents/CaixaBank/beancount/2023/2023-caixabank.bean"
