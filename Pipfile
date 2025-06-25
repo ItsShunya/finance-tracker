@@ -14,4 +14,4 @@ fava-dashboards = {git = "https://github.com/andreasgerstmayr/fava-dashboards.gi
 [dev-packages]
 
 [requires]
-python_version = "3.13ss"
+python_version = "3.13"
