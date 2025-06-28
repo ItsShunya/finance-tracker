@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "beancount>=3.1.0",
+    "beangulp>=0.2.0",
     "csb43>=1.0.0",
     "fava-dashboards",
     "fava>=1.30.3",
