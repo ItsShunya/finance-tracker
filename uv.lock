@@ -208,6 +208,7 @@ dependencies = [
     { name = "csb43" },
     { name = "fava" },
     { name = "fava-dashboards" },
+    { name = "ofxparse" },
     { name = "ofxtools" },
     { name = "titlecase" },
 ]
@@ -218,6 +219,7 @@ requires-dist = [
     { name = "csb43", specifier = ">=1.0.0" },
     { name = "fava", specifier = ">=1.30.3" },
     { name = "fava-dashboards", git = "https://github.com/andreasgerstmayr/fava-dashboards" },
+    { name = "ofxparse", specifier = ">=0.21" },
     { name = "ofxtools", specifier = ">=0.9.5" },
     { name = "titlecase", specifier = ">=2.4.1" },
 ]
@@ -366,6 +368,17 @@ sdist = { url = "https://files.pythonhosted.org/packages/ce/a0/834b0cebabbfc7e31
 wheels = [
     { url = "https://files.pythonhosted.org/packages/2b/9f/7ba6f94fc1e9ac3d2b853fdff3035fb2fa5afbed898c4a72b8a020610594/more_itertools-10.7.0-py3-none-any.whl", hash = "sha256:d43980384673cb07d2f7d2d918c616b30c659c089ee23953f601d6609c67510e", size = 65278 },
 ]
+
+[[package]]
+name = "ofxparse"
+version = "0.21"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "beautifulsoup4" },
+    { name = "lxml" },
+    { name = "six" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/45/ae/98a2acfd06d15869c4b1be7fb74849c8a67cf15b65181f1fe879547e7494/ofxparse-0.21.tar.gz", hash = "sha256:057ab68d31270dece4d1a47662096aa76341968aaee145ffc711cb44cbd5c4a7", size = 53837 }
 
 [[package]]
 name = "ofxtools"
