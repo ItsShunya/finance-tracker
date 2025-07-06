@@ -1,3 +1,6 @@
 [submodule "documents"]
 	path = documents
 	url = https://github.com/ItsShunya/finance-documents
+[submodule "ledger"]
+	path = ledger
+	url = https://github.com/ItsShunya/finance-ledger
