@@ -2,7 +2,7 @@ from readers import ofx_reader
 from transactions import banking
 
 
-class Importer(banking.Importer, ofxreader.Importer):
+class Importer(banking.Importer, ofx_reader.Importer):
     IMPORTER_NAME = "Caixabank"
 
     def custom_init(self):

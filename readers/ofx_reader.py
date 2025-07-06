@@ -8,7 +8,7 @@ from beangulp import Importer as BGImporter
 from bs4 import BeautifulSoup
 from bs4.builder import XMLParsedAsHTMLWarning
 
-from readers.reader import reader
+from . import reader
 
 warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
 
