@@ -1,5 +1,5 @@
-from readers import ofx_reader
-from transactions import banking
+from src.readers import ofx_reader
+from src.transactions import banking
 
 
 class Importer(banking.Importer, ofx_reader.Importer):

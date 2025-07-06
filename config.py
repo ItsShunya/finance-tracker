@@ -7,7 +7,7 @@ import beangulp
 sys.path.insert(0, path.join(path.dirname(__file__)))
 
 # importers located in the importers directory
-from importers import caixabank
+from src.importers import caixabank
 
 # Setting this variable provides a list of importer instances.
 CONFIG = [
