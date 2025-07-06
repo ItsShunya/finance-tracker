@@ -1,0 +1,20 @@
+[project]
+name = "finance_tracker"
+version = "0.1.0"
+description = "Dashboard and tracker for personal finances"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "beancount>=3.1.0",
+    "beangulp>=0.2.0",
+    "bs4>=0.0.2",
+    "csb43>=1.0.0",
+    "fava-dashboards",
+    "fava>=1.30.3",
+    "ofxparse>=0.21",
+    "ofxtools>=0.9.5",
+    "titlecase>=2.4.1",
+]
+
+[tool.uv.sources]
+fava-dashboards = { git = "https://github.com/andreasgerstmayr/fava-dashboards" }
