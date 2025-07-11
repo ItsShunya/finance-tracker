@@ -1,98 +1,53 @@
-import email
-from operator import contains
-from beancount.core.number import D
-from beancount.ingest import importer
-from beancount.core import account
-from beancount.core import amount
-from beancount.core import flags
-from beancount.core import data
-from beancount.core.position import Cost
+from src.readers import csv_reader
+from src.transactions import banking
 
-from dateutil.parser import parse
 
-from titlecase import titlecase
+class Importer(banking.Importer, csv_reader.Importer):
+    IMPORTER_NAME = "Paypal"
 
-import csv
-import os
-import re
+    def custom_init(self):
+        self.max_rounding_error = 0.04
+        self.filename_pattern_def = "^Paypal-.*.csv$"
+        self.header_identifier = ""
+        self.column_labels_line = '"Date","Time","Time Zone","Description","Currency","Gross ","Fee ","Net","Balance","Transaction ID","From Email Address","Name","Bank Name","Bank Account","Shipping and Handling Amount","Sales Tax","Invoice ID","Reference Txn ID"'
+        self.date_format = "%d/%m/%Y"
+        self.skip_comments = "# "
 
-from utilities import strings
+        self.header_map = {
+            "Date":                 "date",
+            "From Email Address":   "checknum",
+            "Name":                 "payee",
+            "Currency":             "currency",
+            "Description":          "type",
+        }
 
-class PaypalImporter(importer.ImporterProtocol):
-    def __init__(self, account):
-        self.account = account
+        self.skip_transaction_types = [
+            #"General Credit Card Deposit",
+            #"Bank Deposit to PP Account",
+        ]
 
-    def _check_common_names(self, name):
-        if(name.contains("Uber")):
-            return "Uber Eats"
-        elif(name.contains("Telepizza")):
-            return "Telepizza"
-        return ""
+        self.transaction_type_map = {
+            'Website Payment':      'payment',
+            'PreApproved Payment Bill User Payment':    'payment',
+            'Express Checkout Payment': 'payment',
+        }
 
-    def _check_common_emails(self, email):
-        if(email.contains("@uber.com")):
-            return "Uber Eats"
-        elif(email.contains("@telepizza.com")):
-            return "Telepizza"
-        return ""
 
-    def _check_account(self, name, email, bank, desc):
-        restaurants = ["uber", "telepizza"]
-        games = ["terminal3", "cognosphere", "mihoyo", "daumgames", "kakao"] # BDO, Genshin
+    def prepare_table(self, rdr):
+        rdr = rdr.addfield(
+            "amount",
+            lambda x: x["Net"].replace(',', '.')
+        )
+        rdr = rdr.addfield(
+            "balance",
+            lambda x: x["Balance"].replace(',', '.')
+        )
+        rdr = rdr.addfield("memo", lambda x: "")
+        return rdr
 
-        if("caixabank" in bank.lower()):
-            return "Assets:EU:CaixaBank:Checking"
-        if(any(r in name for r in restaurants) or any(r in email for r in restaurants)):
-            return "Expenses:Food:Restaurant"
-        elif(any(g in name for g in games) or any(g in email for g in games)):
-            return "Expenses:Leisure:Games"
-        elif(self._is_payment(desc)):
-            return "Income:Sold"
-        else:
-            return "Expenses:Other"
+    def get_balance_statement(self, file=None):
+        """Return the balance on the first and last dates"""
 
-    def _is_payment(self, desc):
-        payment_descriptions = [ "Mobile Payment", "General Payment"]
-        return any(p in desc for p in payment_descriptions)
-
-    def identify(self, f):
-        return re.match(r'^Paypal-.*\.CSV$', os.path.basename(f.name))
-
-    def extract(self, f):
-        entries = []
-        with open(f.name, encoding="utf-8") as f:
-            for index, row in enumerate(csv.DictReader(f)):
-                trans_date = parse(row['Date'], dayfirst=True).date()
-                trans_desc = titlecase(strings.remove_accents(row['Description']))
-                trans_amt  = row['Net'].replace(',', '.')
-                name = row['Name']
-                email = row['From Email Address']
-                bank = row['Bank Name']
-
-                meta = data.new_metadata(f.name, index)
-
-                txn = data.Transaction(
-                    meta=meta,
-                    date=trans_date,
-                    flag=flags.FLAG_OKAY,
-                    payee=trans_desc,
-                    narration="",
-                    tags=set(),
-                    links=set(),
-                    postings=[],
-                )
-
-                txn.postings.append(
-                    data.Posting(self.account, amount.Amount(D(trans_amt),
-                        row['Currency']), None, None, None, None)
-                )
-
-                if(name.__ne__("") or email.__ne__("") or bank.__ne__("")):
-                    txn.postings.append(
-                        data.Posting(self._check_account(name, email, bank, trans_desc), -amount.Amount(D(trans_amt),
-                        row['Currency']), None, None, None, None)
-                )
-                
-                entries.append(txn)
-
-        return entries
+        date = self.get_balance_assertion_date()
+        if date:
+            yield banking.Balance(date, self.rdr.namedtuples()[0].balance, self.rdr.namedtuples()[0].currency)
