@@ -7,7 +7,7 @@ import beangulp
 sys.path.insert(0, path.join(path.dirname(__file__)))
 
 # importers located in the importers directory
-from src.importers import caixabank
+from src.importers import caixabank, paypal
 
 # Setting this variable provides a list of importer instances.
 CONFIG = [
@@ -16,6 +16,12 @@ CONFIG = [
         {
             "main_account": "Assets:EU:CaixaBank:Checking",
             "account_number": "0101278127",
+        }
+    ),
+
+    paypal.Importer(
+        {
+            "main_account": "Assets:Online:Paypal:Checking"
         }
     )
 ]
