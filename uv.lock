@@ -43,6 +43,18 @@ wheels = [
 ]
 
 [[package]]
+name = "beancount-reds-plugins"
+version = "0.3.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "beancount" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/09/d4/3d873e19e99b8441244d04a0e99eb7609abc627079ff3d044a20b2229daa/beancount_reds_plugins-0.3.0.tar.gz", hash = "sha256:deec76e1d853854fdbff1cf78a39938390ca18554a6cab21a1845ec293e58673", size = 49477 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ae/2b/8d3dd2baddefbb91d6857f0765c75149ff7ee00fbfb8504064f6c0135032/beancount_reds_plugins-0.3.0-py3-none-any.whl", hash = "sha256:4bf7d56a9d8084acb50591283cf1724eaa035c2f2df2ac70a3370b0d068da6ed", size = 54219 },
+]
+
+[[package]]
 name = "beangulp"
 version = "0.2.0"
 source = { registry = "https://pypi.org/simple" }
@@ -217,6 +229,7 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "beancount" },
+    { name = "beancount-reds-plugins" },
     { name = "beangulp" },
     { name = "bs4" },
     { name = "csb43" },
@@ -224,12 +237,14 @@ dependencies = [
     { name = "fava-dashboards" },
     { name = "ofxparse" },
     { name = "ofxtools" },
+    { name = "petl" },
     { name = "titlecase" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "beancount", specifier = ">=3.1.0" },
+    { name = "beancount-reds-plugins", specifier = ">=0.3.0" },
     { name = "beangulp", specifier = ">=0.2.0" },
     { name = "bs4", specifier = ">=0.0.2" },
     { name = "csb43", specifier = ">=1.0.0" },
@@ -237,6 +252,7 @@ requires-dist = [
     { name = "fava-dashboards", git = "https://github.com/andreasgerstmayr/fava-dashboards" },
     { name = "ofxparse", specifier = ">=0.21" },
     { name = "ofxtools", specifier = ">=0.9.5" },
+    { name = "petl", specifier = ">=1.7.16" },
     { name = "titlecase", specifier = ">=2.4.1" },
 ]
 
@@ -401,6 +417,12 @@ name = "ofxtools"
 version = "0.9.5"
 source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/ce/37/d224428cbb44b8d36b9458c2c9b11eb54ece95bc455ef6f7ada583809b13/ofxtools-0.9.5.tar.gz", hash = "sha256:682a516bfa5ccad0f9551c17cc2cf155422f9f5f85a341cfb4911b324de46045", size = 114090 }
+
+[[package]]
+name = "petl"
+version = "1.7.16"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/99/28/ce7321fbd3b981fd9c212adf7455e0e4e42babebd83b92e24f8265d13dd3/petl-1.7.16.tar.gz", hash = "sha256:9c2fea64d859da45e120fd86d471e5387396cc45d5d4986efa79679f18eb8752", size = 420780 }
 
 [[package]]
 name = "ply"
