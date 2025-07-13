@@ -2,6 +2,7 @@ import sys
 from os import path
 
 import beangulp
+from smart_importer import PredictPostings, PredictPayees
 
 # beancount doesn't run from this directory
 sys.path.insert(0, path.join(path.dirname(__file__)))
@@ -11,19 +12,29 @@ from src.importers import caixabank, paypal
 
 # Setting this variable provides a list of importer instances.
 CONFIG = [
-    #paypal.PaypalImporter('Assets:Online:Paypal:Checking'),
-    caixabank.Importer(
-        {
-            "main_account": "Assets:EU:CaixaBank:Checking",
-            "account_number": "0101278127",
-        }
+    PredictPostings().wrap(
+        PredictPayees().wrap(
+            caixabank.Importer(
+                {
+                    "main_account": "Assets:EU:CaixaBank:Checking",
+                    "account_number": "0101278127",
+                }
+            )
+        )
     ),
 
-    paypal.Importer(
-        {
-            "main_account": "Assets:Online:Paypal:Checking"
-        }
-    )
+    PredictPostings().wrap(
+        PredictPayees().wrap(
+            paypal.Importer(
+                {
+                    "main_account": "Assets:Online:Paypal:Checking"
+                }
+            )
+        )
+    ),
+]
+
+HOOKS = [
 ]
 
 # Override the header on extracted text (if desired).
@@ -31,5 +42,5 @@ CONFIG = [
 
 
 if __name__ == "__main__":
-    ingest = beangulp.Ingest(CONFIG)
+    ingest = beangulp.Ingest(CONFIG, HOOKS)
     ingest()
