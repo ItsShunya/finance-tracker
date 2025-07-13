@@ -15,6 +15,7 @@ dependencies = [
     "ofxparse>=0.21",
     "ofxtools>=0.9.5",
     "petl>=1.7.16",
+    "smart-importer>=1.1",
     "titlecase>=2.4.1",
 ]
 
