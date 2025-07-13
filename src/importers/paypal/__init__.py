@@ -22,8 +22,8 @@ class Importer(banking.Importer, csv_reader.Importer):
         }
 
         self.skip_transaction_types = [
-            #"General Credit Card Deposit",
-            #"Bank Deposit to PP Account",
+            "General Authorization - Pending",
+            "PreApproved Payment Bill User Payment - Completed",
         ]
 
         self.transaction_type_map = {
