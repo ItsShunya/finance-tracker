@@ -16,7 +16,7 @@ class Importer(banking.Importer, csv_reader.Importer):
         self.header_map = {
             "Date":                 "date",
             "From Email Address":   "checknum",
-            "Name":                 "payee",
+            #"Name":                 "payee",
             "Currency":             "currency",
             "Description":          "type",
         }
@@ -34,6 +34,7 @@ class Importer(banking.Importer, csv_reader.Importer):
 
 
     def prepare_table(self, rdr):
+        # TO-DO: Simplify these fields. e.g. addfieldS()
         rdr = rdr.addfield(
             "amount",
             lambda x: x["Net"].replace(',', '.')
@@ -41,6 +42,10 @@ class Importer(banking.Importer, csv_reader.Importer):
         rdr = rdr.addfield(
             "balance",
             lambda x: x["Balance"].replace(',', '.')
+        )
+        rdr = rdr.addfield(
+            "payee",
+            lambda x: f'{x["Description"]}: {x["Name"]}' 
         )
         rdr = rdr.addfield("memo", lambda x: "")
         return rdr
