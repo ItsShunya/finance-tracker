@@ -231,6 +231,9 @@ class Importer(reader.Reader, BGImporter):
         We add an additional day to get_max_transaction_date(), since Beancount balance
         assertions are defined to occur on the beginning of the assertion date.
         """
+        if not self.get_max_transaction_date():
+            return None
+            
         return self.get_max_transaction_date() + datetime.timedelta(days=1)
 
     def get_max_transaction_date(self):
@@ -248,8 +251,8 @@ class Importer(reader.Reader, BGImporter):
                 for ot in self.get_transactions()
             ).date()
         except Exception as err:
-            print("ERROR: no end_date. SKIPPING input.")
-            traceback.print_tb(err.__traceback__)
+            #print("ERROR: no end_date. SKIPPING input.")
+            #traceback.print_tb(err.__traceback__)
             return None
 
         return date

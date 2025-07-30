@@ -8,7 +8,7 @@ from smart_importer import PredictPostings, PredictPayees
 sys.path.insert(0, path.join(path.dirname(__file__)))
 
 # importers located in the importers directory
-from src.importers import caixabank, paypal
+from src.importers import caixabank, paypal, revolut
 
 # Setting this variable provides a list of importer instances.
 CONFIG = [
@@ -28,6 +28,16 @@ CONFIG = [
             paypal.Importer(
                 {
                     "main_account": "Assets:Online:Paypal:Checking"
+                }
+            )
+        )
+    ),
+
+    PredictPostings().wrap(
+        PredictPayees().wrap(
+            revolut.Importer(
+                {
+                    "main_account": "Assets:EU:Revolut:Checking"
                 }
             )
         )
