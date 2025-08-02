@@ -169,4 +169,3 @@ This repository is shared under the [Apache-2.0 License](./LICENSE). You are fre
 ## Acknowledgments
 
 Special thanks to the Beancount community for their work, as well as to *redstreet* for the work on his importers.
-```
