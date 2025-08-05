@@ -17,6 +17,7 @@ CONFIG = [
             caixabank.Importer(
                 {
                     "main_account": "Assets:EU:CaixaBank:Checking",
+                    "filename_pattern": "^Caixabank-",
                     "account_number": "0101278127",
                 }
             )
@@ -27,7 +28,8 @@ CONFIG = [
         PredictPayees().wrap(
             paypal.Importer(
                 {
-                    "main_account": "Assets:Online:Paypal:Checking"
+                    "main_account": "Assets:Online:Paypal:Checking",
+                    "filename_pattern": "^Paypal-",
                 }
             )
         )
@@ -37,7 +39,8 @@ CONFIG = [
         PredictPayees().wrap(
             revolut.Importer(
                 {
-                    "main_account": "Assets:EU:Revolut:Checking"
+                    "main_account": "Assets:EU:Revolut:Checking",
+                    "filename_pattern": "^Revolut-",
                 }
             )
         )
@@ -47,7 +50,8 @@ CONFIG = [
         PredictPayees().wrap(
             n26.Importer(
                 {
-                    "main_account": "Assets:EU:N26:Checking"
+                    "main_account": "Assets:EU:N26:Checking",
+                    "filename_pattern": "^N26-",
                 }
             )
         )

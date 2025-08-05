@@ -3,22 +3,22 @@
 import itertools
 from collections import namedtuple
 
-from beancount.core import amount, data, flags
-from beangulp import Importer as BGImporter
+from beancount.core import flags
+from beancount.core.amount import Amount
+from beancount.core.data import Balance, Transaction, new_metadata
+from beangulp import Importer as BaseImporter
 
-from . import common, transaction_builder
+from src.transactions.transaction_builder import TransactionBuilder
+from src.transactions.common import create_posting
 
-Balance = namedtuple("Balance", ["date", "amount", "currency"])
+BalanceStatement = namedtuple('BalanceStatement', ['date', 'amount', 'currency'])
 
-
-class Importer(BGImporter, transaction_builder.TransactionBuilder):
+class BankingImporter(BaseImporter, TransactionBuilder):
     FLAG = flags.FLAG_OKAY
 
     def __init__(self, config):
         self.config = config
-        self.initialized = False
         self.reader_ready = False
-        self.custom_init_run = False
 
         # For overriding in custom_init()
         self.get_payee = lambda ot: ot.payee
@@ -30,10 +30,9 @@ class Importer(BGImporter, transaction_builder.TransactionBuilder):
         # }
 
     def initialize(self, file):
-        if not self.initialized or self.file != file:
+        if not hasattr(self, "file") or self.file != file:
             self.custom_init()
             self.initialize_reader(file)
-            self.initialized = True
             self.file = file
 
     def build_account_map(self):
@@ -50,14 +49,7 @@ class Importer(BGImporter, transaction_builder.TransactionBuilder):
         return file_account.endswith(config_account)
 
     def custom_init(self):
-        if not self.custom_init_run:
-            self.max_rounding_error = 0.04
-            self.filename_pattern_def = ".*bank_specific_filename.*"
-            self.custom_init_run = True
-
-    # def get_target_acct(self, transaction):
-    #     # Not needed for accounts using smart_importer
-    #     return self.target_account_map.get(transaction.type, None)
+        self.max_rounding_error = 0.04
 
     @staticmethod
     def fields_contain_data(ot, fields):
@@ -78,13 +70,13 @@ class Importer(BGImporter, transaction_builder.TransactionBuilder):
 
         for bal in self.get_balance_statement(file=file):
             if bal:
-                metadata = data.new_metadata(file, next(counter))
+                metadata = new_metadata(file, next(counter))
                 metadata.update(self.build_metadata(file, metatype="balance"))
-                balance_entry = data.Balance(
+                balance_entry = Balance(
                     metadata,
                     bal.date,
                     self.config["main_account"],
-                    amount.Amount(bal.amount, self.get_currency(bal)),
+                    Amount(bal.amount, self.get_currency(bal)),
                     None,
                     None,
                 )
@@ -110,7 +102,7 @@ class Importer(BGImporter, transaction_builder.TransactionBuilder):
         for ot in self.get_transactions():
             if self.skip_transaction(ot):
                 continue
-            metadata = data.new_metadata(file, next(counter))
+            metadata = new_metadata(file, next(counter))
             # metadata['type'] = ot.type # Optional metadata, useful for debugging #TODO
             metadata.update(
                 self.build_metadata(file, metatype="transaction", data={"transaction": ot})
@@ -124,9 +116,7 @@ class Importer(BGImporter, transaction_builder.TransactionBuilder):
             # narration, so keeping the order unchanged in the call below is important.
 
             # Build transaction entry
-            # Banking transactions might include foreign currency transactions. TODO: figure out
-            # how ofx handles this and use the same interface for csv and other files
-            entry = data.Transaction(
+            entry = Transaction(
                 meta=metadata,
                 date=ot.date.date(),
                 flag=self.FLAG,
@@ -140,22 +130,19 @@ class Importer(BGImporter, transaction_builder.TransactionBuilder):
 
             main_account = self.get_main_account(ot)
 
-            if self.fields_contain_data(ot, ["foreign_amount", "foreign_currency"]):
-                common.create_simple_posting_with_price(
-                    entry,
-                    main_account,
-                    ot.amount,
-                    self.get_currency(ot),
-                    ot.foreign_amount,
-                    ot.foreign_currency,
-                )
-            else:
-                data.create_simple_posting(entry, main_account, ot.amount, self.get_currency(ot))
+            create_posting(
+                entry,
+                main_account,
+                ot.amount,
+                self.get_currency(ot),
+                amount_number = ot.foreign_amount if hasattr(ot, "foreign_amount") else None,
+                amount_currency = ot.foreign_currency if hasattr(ot, "foreign_currency") else None,
+            )
 
             # smart_importer can fill this in if the importer doesn't override self.get_target_acct()
             target_acct = self.get_target_account(ot)
             if target_acct:
-                data.create_simple_posting(entry, target_acct, None, None)
+                create_posting(entry, target_acct, None, None)
 
             self.add_custom_postings(entry, ot)
             new_entries.append(entry)

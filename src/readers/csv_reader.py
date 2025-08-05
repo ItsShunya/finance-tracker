@@ -8,10 +8,10 @@ import traceback
 
 import petl as etl
 from beancount.core.number import D
-from beangulp import Importer as BGImporter
+from beangulp import Importer as BaseImporter
 from beangulp import cache
 
-from . import reader
+from src.readers.reader import Reader
 
 # This csv reader uses petl to read a .csv into a table for manipulation. The output of this reader is a list
 # of namedtuples corresponding roughly to ofx transactions. The following steps achieve this. When writing
@@ -61,7 +61,7 @@ from . import reader
 # - The table is now ready for use by the importer. petl makes each row available via namedtuples
 
 
-class Importer(reader.Reader, BGImporter):
+class CSVReader(Reader, BaseImporter):
     FILE_EXTS = ["csv"]
 
     def initialize_reader(self, file):
@@ -70,9 +70,9 @@ class Importer(reader.Reader, BGImporter):
             self.reader_ready = self.deep_identify(file)
             if self.reader_ready:
                 self.file_read_done = False
-            # else:
-            #     print("header_identifier failed---------------:")
-            #     print(self.header_identifier, cache.get_file(file).head())
+            else:
+                 print("header_identifier failed---------------:")
+                 print(self.header_identifier, cache.get_file(file).head())
 
     def deep_identify(self, file):
         return re.match(

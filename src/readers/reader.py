@@ -1,19 +1,22 @@
-import ntpath
+from pathlib import Path
 import re
-from os import path
-
 
 class Reader:
     FILE_EXTS = [""]
     IMPORTER_NAME = "UNKNOWN"
 
     def identify(self, file):
-        if not any(file.lower().endswith(ext) for ext in self.FILE_EXTS):
+        file_path = Path(file)
+        
+        if file_path.suffix.lower() not in (f".{ext.lower()}" for ext in self.FILE_EXTS):
             return False
+
         self.custom_init()
-        self.filename_pattern = self.config.get("filename_pattern", self.filename_pattern_def)
-        if not re.match(self.filename_pattern, path.basename(file)):
+        self.filename_pattern = self.config.get("filename_pattern", "^*")
+
+        if not re.match(self.filename_pattern, file_path.name):
             return False
+
         self.currency = self.config.get("currency", "CURRENCY_NOT_CONFIGURED")
         self.initialize_reader(file)
         return self.reader_ready
@@ -23,7 +26,7 @@ class Reader:
         self.currency = self.config.get("currency", "CURRENCY_NOT_CONFIGURED")
 
     def filename(self, file):
-        return "{}".format(ntpath.basename(file))
+        return Path(file).name
 
     def account(self, file):
         import inspect

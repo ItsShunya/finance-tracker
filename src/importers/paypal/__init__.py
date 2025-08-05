@@ -1,13 +1,13 @@
-from src.readers import csv_reader
-from src.transactions import banking
+from collections import namedtuple
 
+from src.readers.csv_reader import CSVReader
+from src.transactions.banking import BankingImporter, BalanceStatement
 
-class Importer(banking.Importer, csv_reader.Importer):
+class Importer(BankingImporter, CSVReader):
     IMPORTER_NAME = "Paypal"
 
     def custom_init(self):
         self.max_rounding_error = 0.04
-        self.filename_pattern_def = "^Paypal-.*.csv$"
         self.header_identifier = ""
         self.column_labels_line = '"Date","Time","Time Zone","Description","Currency","Gross ","Fee ","Net","Balance","Transaction ID","From Email Address","Name","Bank Name","Bank Account","Shipping and Handling Amount","Sales Tax","Invoice ID","Reference Txn ID"'
         self.date_format = "%d/%m/%Y"
@@ -52,7 +52,6 @@ class Importer(banking.Importer, csv_reader.Importer):
 
     def get_balance_statement(self, file=None):
         """Return the balance on the first and last dates"""
-
         date = self.get_balance_assertion_date()
         if date:
-            yield banking.Balance(date, self.rdr.namedtuples()[0].balance, self.rdr.namedtuples()[0].currency)
+            yield BalanceStatement(date, self.rdr.namedtuples()[0].balance, self.rdr.namedtuples()[0].currency)

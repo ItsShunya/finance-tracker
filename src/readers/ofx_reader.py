@@ -4,16 +4,15 @@ from collections import namedtuple
 from io import StringIO
 
 import ofxparse
-from beangulp import Importer as BGImporter
+from beangulp import Importer as BaseImporter
 from bs4 import BeautifulSoup
 from bs4.builder import XMLParsedAsHTMLWarning
 
-from . import reader
+from src.readers.reader import Reader
 
 warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
 
-
-class Importer(reader.Reader, BGImporter):
+class OFXReader(Reader, BaseImporter):
     FILE_EXTS = ["ofx", "qfx"]
 
     def initialize_reader(self, file):

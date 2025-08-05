@@ -1,13 +1,12 @@
-from src.readers import csv_reader
-from src.transactions import banking
+from src.readers.csv_reader import CSVReader
+from src.transactions.banking import BankingImporter
 
 
-class Importer(banking.Importer, csv_reader.Importer):
+class Importer(BankingImporter, CSVReader):
     IMPORTER_NAME = "N26"
 
     def custom_init(self):
         self.max_rounding_error = 0.04
-        self.filename_pattern_def = "^N26-.*.csv$"
         self.header_identifier = ""
         self.column_labels_line = '"Booking Date","Value Date","Partner Name","Partner Iban",Type,"Payment Reference","Account Name","Amount (EUR)","Original Amount","Original Currency","Exchange Rate"'
         self.date_format = "%Y-%m-%d"

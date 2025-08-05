@@ -1,12 +1,8 @@
-from src.readers import ofx_reader
-from src.transactions import banking
+from src.readers.ofx_reader import OFXReader
+from src.transactions.banking import BankingImporter
 
-
-class Importer(banking.Importer, ofx_reader.Importer):
+class Importer(BankingImporter, OFXReader):
     IMPORTER_NAME = "Caixabank"
 
     def custom_init(self):
-        if not self.custom_init_run:
-            self.max_rounding_error = 0.04
-            self.filename_pattern_def = "^Caixabank-.*.ofx$"
-            self.custom_init_run = True
+        self.max_rounding_error = 0.04
