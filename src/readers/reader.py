@@ -5,13 +5,15 @@ class Reader:
     FILE_EXTS = [""]
     IMPORTER_NAME = "UNKNOWN"
 
+    def __init__(self, config):
+        self.config = config
+
     def identify(self, file):
         file_path = Path(file)
         
         if file_path.suffix.lower() not in (f".{ext.lower()}" for ext in self.FILE_EXTS):
             return False
 
-        self.custom_init()
         self.filename_pattern = self.config.get("filename_pattern", "^*")
 
         if not re.match(self.filename_pattern, file_path.name):
@@ -38,7 +40,7 @@ class Reader:
                 return self.config["smart_importer_hack"]
 
         # Otherwise handle a typical bean-file call
-        self.initialize(file)
+        self.initialize_reader(file)
         if "filing_account" in self.config:
             return self.config["filing_account"]
         return self.config["main_account"]

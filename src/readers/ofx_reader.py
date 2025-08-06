@@ -4,7 +4,7 @@ from collections import namedtuple
 from io import StringIO
 
 import ofxparse
-from beangulp import Importer as BaseImporter
+#from beangulp import Importer as BaseImporter
 from bs4 import BeautifulSoup
 from bs4.builder import XMLParsedAsHTMLWarning
 
@@ -12,29 +12,26 @@ from src.readers.reader import Reader
 
 warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
 
-class OFXReader(Reader, BaseImporter):
+class OFXReader(Reader):
     FILE_EXTS = ["ofx", "qfx"]
 
     def initialize_reader(self, file):
-        if getattr(self, "file", None) != file:
-            self.file = file
-            self.ofx_account = None
-            self.reader_ready = False
-            try:
-                self.ofx = self.read_file(file)
-            except ofxparse.OfxParserException:
-                return
-            for acc in self.ofx.accounts:
-                # account identifying info fieldname varies across institutions
-                # self.acc_num_field can be overridden in self.custom_init() if needed
-                acc_num_field = getattr(self, "account_number_field", "account_id")
-                if self.match_account_number(
-                    getattr(acc, acc_num_field), self.config["account_number"]
-                ):
-                    self.ofx_account = acc
-                    self.reader_ready = True
-            if self.reader_ready:
-                self.currency = self.ofx_account.statement.currency.upper()
+        self.ofx_account = None
+        self.reader_ready = False
+        try:
+            self.ofx = self.read_file(file)
+        except ofxparse.OfxParserException:
+            return
+        for acc in self.ofx.accounts:
+            # account identifying info fieldname varies across institutions
+            acc_num_field = getattr(self, "account_number_field", "account_id")
+            if self.match_account_number(
+                getattr(acc, acc_num_field), self.config["account_number"]
+            ):
+                self.ofx_account = acc
+                self.reader_ready = True
+        if self.reader_ready:
+            self.currency = self.ofx_account.statement.currency.upper()
 
     def match_account_number(self, file_account, config_account):
         """We many not want to store entire credit card numbers in our config. Or a given ofx may not contain

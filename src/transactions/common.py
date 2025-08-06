@@ -11,7 +11,8 @@ def create_posting(
     currency: str,
     amount_number: Decimal | str = None,
     amount_currency: str = None,
-    is_price: bool = True,
+    is_price: bool = False,
+    is_cost: bool = False
 ) -> Posting:
     """
     Create a simple posting on the entry, with either a cost (for purchases) or a price (for sell transactions).
@@ -23,21 +24,23 @@ def create_posting(
       currency: The currency for the Amount.
       amount_number: The number to use for the posting's cost or price Amount.
       amount_currency: The currency for the cost or price Amount.
-      is_price: A boolean indicating whether the posting is a price (True) or a cost (False).
+      is_price: A boolean indicating whether the posting is a price.
+      is_cost: A boolean indicating whether the posting is a cost.
 
     Returns:
       An instance of Posting, and as a side-effect the entry has had its list of
       postings modified with the new Posting instance.
     """
+
     units = Amount(D(number), currency)
     amount = Amount(D(amount_number), amount_currency)
 
-    # Determine whether to set cost or price
-    cost = None if is_price else Cost(amount.number, amount.currency, None, None)
-    price = amount if is_price else None
+    # Determine whether to set cost or price if needed.
+    cost = Cost(amount.number, amount.currency, None, None) if is_cost else None
+    price = units if is_price else None
 
     posting = Posting(account, units, cost, price, None, None)
-
+    
     if entry is not None:
         entry.postings.append(posting)
 

@@ -1,40 +1,41 @@
-from collections import namedtuple
-
-from src.readers.csv_reader import CSVReader
+from src.readers.csv_reader import CSVReader, CSVReaderOptions
 from src.transactions.banking import BankingImporter, BalanceStatement
 
-class Importer(BankingImporter, CSVReader):
+class Importer(BankingImporter):
     IMPORTER_NAME = "Paypal"
 
-    def custom_init(self):
-        self.max_rounding_error = 0.04
-        self.header_identifier = ""
-        self.column_labels_line = '"Date","Time","Time Zone","Description","Currency","Gross ","Fee ","Net","Balance","Transaction ID","From Email Address","Name","Bank Name","Bank Account","Shipping and Handling Amount","Sales Tax","Invoice ID","Reference Txn ID"'
-        self.date_format = "%d/%m/%Y"
-        self.skip_comments = "# "
+    def __init__(self, config):
+        super().__init__(config)
 
-        self.header_map = {
-            "Date":                 "date",
-            "From Email Address":   "checknum",
-            #"Name":                 "payee",
-            "Currency":             "currency",
-            "Description":          "type",
-        }
+        csv_options = CSVReaderOptions(
+            max_rounding_error=0.04,
+            header_identifier="",
+            column_labels_line='"Date","Time","Time Zone","Description","Currency","Gross ","Fee ","Net","Balance","Transaction ID","From Email Address","Name","Bank Name","Bank Account","Shipping and Handling Amount","Sales Tax","Invoice ID","Reference Txn ID"',
+            date_format="%d/%m/%Y",
+            skip_comments="# ",
+            header_map={
+                "Date": "date",
+                "From Email Address": "checknum",
+                "Currency": "currency",
+                "Description": "type",
+            },
+            skip_transaction_types=[
+                "General Authorization - Pending",
+                "General Authorization - Completed",
+            ],
+            transaction_type_map={
+                "Website Payment": "payment",
+                "PreApproved Payment Bill User Payment": "payment",
+                "Express Checkout Payment": "payment",
+            },
+            transformation_cb=self.transformations
+        )
 
-        self.skip_transaction_types = [
-            "General Authorization - Pending",
-            "General Authorization - Completed",
-        ]
+        self.reader = CSVReader(config, csv_options)
 
-        self.transaction_type_map = {
-            'Website Payment':      'payment',
-            'PreApproved Payment Bill User Payment':    'payment',
-            'Express Checkout Payment': 'payment',
-        }
-
-
-    def prepare_table(self, rdr):
+    def transformations(self, rdr):
         # TO-DO: Simplify these fields. e.g. addfieldS()
+        print("prepare table")
         rdr = rdr.addfield(
             "amount",
             lambda x: x["Net"].replace(',', '.')
@@ -52,6 +53,6 @@ class Importer(BankingImporter, CSVReader):
 
     def get_balance_statement(self, file=None):
         """Return the balance on the first and last dates"""
-        date = self.get_balance_assertion_date()
+        date = self.reader.get_balance_assertion_date()
         if date:
-            yield BalanceStatement(date, self.rdr.namedtuples()[0].balance, self.rdr.namedtuples()[0].currency)
+            yield BalanceStatement(date, self.reader.rdr.namedtuples()[0].balance, self.reader.rdr.namedtuples()[0].currency)

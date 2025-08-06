@@ -5,6 +5,8 @@ import datetime
 import re
 import sys
 import traceback
+from typing import Callable
+from dataclasses import dataclass
 
 import petl as etl
 from beancount.core.number import D
@@ -13,70 +15,38 @@ from beangulp import cache
 
 from src.readers.reader import Reader
 
-# This csv reader uses petl to read a .csv into a table for manipulation. The output of this reader is a list
-# of namedtuples corresponding roughly to ofx transactions. The following steps achieve this. When writing
-# your own importer, you only should need to:
-# - override prepare_table()
-#   - provide the following mappings, which correspond to the input file format of a given institution:
-#       - header_map
-#       - transaction_type_map
-#       - skip_transaction_types
-# See the schwab_csv importer for an example
-#
-# The steps this importer follow are:
-# - read csv into petl table
-# - skip header and footer rows (configurable)
-# - prepare_table: an overridable method to help get the raw table in shape. As an example, the schwab
-#   importer does the following
-#      - rdr.cutout('') # remove the last column, which is empty
-#      - for rows with interest, the date column contains text such as: '11/16/2018 as of 11/15/2018'. We
-#        convert these into a regular parseable date: '11/16/2018'
-#      - add a 'tradeDate' column, which is a copy of the 'Date' column, to correspond to the importer API
-#      - add a a 'total' column, which is a copy of the 'Amount' column, to correspond to the importer API
-# - rename columns: columns headers are renamed to standardize them to the importer API, using a supplied
-#   dictionary. For the included schwab importer, that looks like:
-#             "Action":      'type',
-#             "Date":        'date',
-#             "tradeDate":   'tradeDate',
-#             "Description": 'memo',
-#             "Symbol":      'security',
-#             etc.
-#
-# - convert_columns: this fixes up the actual data in each column. The base class does the following:
-#   - map types to standard types. The standard types that the importer-API uses are loosely based on ofx
-#     standards. For example, the schwab importer needs this mapping:
-#
-#         self.transaction_type_map = {
-#             'Bank Interest':      'income',
-#             'Buy':                'buystock',
-#             'Cash Dividend':      'dividends',
-#             'MoneyLink Transfer': 'transfer',
-#             'Reinvest Dividend':  'dividends',
-#             'Reinvest Shares':    'buystock',
-#             'Sell':               'sellstock',
-#             }
-#
-#   - numbers are parsed from string and convered into Decimal type. Non-numeric characters like '$' are removed.
-#   - dates are parsed and converted into datetime type.
-# - The table is now ready for use by the importer. petl makes each row available via namedtuples
+
+@dataclass
+class CSVReaderOptions:
+    max_rounding_error: float
+    header_identifier: str
+    column_labels_line: str
+    date_format: str
+    skip_comments: str
+    header_map: dict
+    skip_transaction_types: list
+    transaction_type_map: dict
+    transformation_cb: Callable
 
 
-class CSVReader(Reader, BaseImporter):
+class CSVReader(Reader):
     FILE_EXTS = ["csv"]
 
+    def __init__(self, config, opt: CSVReaderOptions):
+        super().__init__(config)
+        self.options = opt
+
     def initialize_reader(self, file):
-        if getattr(self, "file", None) != file:
-            self.file = file
-            self.reader_ready = self.deep_identify(file)
-            if self.reader_ready:
-                self.file_read_done = False
-            else:
-                 print("header_identifier failed---------------:")
-                 print(self.header_identifier, cache.get_file(file).head())
+        self.reader_ready = self.deep_identify(file)
+        if self.reader_ready:
+            self.file_read_done = False
+        else:
+                print("header_identifier failed---------------:")
+                print(self.options.header_identifier, cache.get_file(file).head())
 
     def deep_identify(self, file):
         return re.match(
-            self.header_identifier,
+            self.options.header_identifier,
             cache.get_file(file).head(encoding=getattr(self, "file_encoding", None)),
         )
 
@@ -85,9 +55,6 @@ class CSVReader(Reader, BaseImporter):
         self.initialize(file)  # self.date_format gets set via this
         self.read_file(file)
         return max(ot.date for ot in self.get_transactions()).date()
-
-    def prepare_table(self, rdr):
-        return rdr
 
     def prepare_raw_file(self, rdr):
         return rdr
@@ -103,7 +70,7 @@ class CSVReader(Reader, BaseImporter):
     def convert_columns(self, rdr):
         # convert data in transaction types column
         if "type" in rdr.header():
-            rdr = rdr.convert("type", self.transaction_type_map)
+            rdr = rdr.convert("type", self.options.transaction_type_map)
 
         # fixup decimals
         decimals = ["units"]
@@ -130,7 +97,7 @@ class CSVReader(Reader, BaseImporter):
         # fixup dates
         def convert_date(d):
             """Remove spaces and convert to datetime"""
-            return datetime.datetime.strptime(d.strip(), self.date_format)
+            return datetime.datetime.strptime(d.strip(), self.options.date_format)
 
         dates = getattr(self, "date_fields", []) + ["date", "tradeDate", "settleDate"]
         for i in dates:
@@ -150,8 +117,8 @@ class CSVReader(Reader, BaseImporter):
         """Skip csv lines until the header line is found."""
         # TODO: convert this into an 'extract_table()' method that handles the tail as well
         if not col_labels:
-            if hasattr(self, "column_labels_line"):
-                col_labels = self.column_labels_line.replace('"', "").split(
+            if hasattr(self.options, "column_labels_line"):
+                col_labels = self.options.column_labels_line.replace('"', "").split(
                     getattr(self, "csv_delimiter", ",")
                 )
             else:
@@ -191,7 +158,9 @@ class CSVReader(Reader, BaseImporter):
         return rdr.rowslice(start, len(rdr))
 
     def read_file(self, file):
+        print('aaaa')
         if not getattr(self, "file_read_done", False):
+            print('bbbb')
             # read file
             rdr = self.read_raw(file)
             rdr = self.prepare_raw_file(rdr)
@@ -202,13 +171,15 @@ class CSVReader(Reader, BaseImporter):
                 len(rdr) - getattr(self, "skip_tail_rows", 0) - 1
             )  # chop unwanted footer rows
             rdr = self.extract_table_with_header(rdr)
-            if hasattr(self, "skip_comments"):
-                rdr = rdr.skipcomments(self.skip_comments)
+            if hasattr(self.options, "skip_comments"):
+                rdr = rdr.skipcomments(self.options.skip_comments)
             rdr = rdr.rowslice(getattr(self, "skip_data_rows", 0), None)
-            rdr = self.prepare_table(rdr)
+            print(rdr)
+            rdr = self.options.transformation_cb(rdr)
+            print(rdr)
 
             # process table
-            rdr = rdr.rename(self.header_map)
+            rdr = rdr.rename(self.options.header_map)
             rdr = self.convert_columns(rdr)
             rdr = self.fix_column_names(rdr)
             rdr = self.prepare_processed_table(rdr)
@@ -224,7 +195,7 @@ class CSVReader(Reader, BaseImporter):
 
     # TOOD: custom, overridable
     def skip_transaction(self, row):
-        return getattr(row, "type", "NO_TYPE") in self.skip_transaction_types
+        return getattr(row, "type", "NO_TYPE") in self.options.skip_transaction_types
 
     def get_balance_assertion_date(self):
         """

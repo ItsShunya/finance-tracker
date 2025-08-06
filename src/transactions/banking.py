@@ -22,18 +22,21 @@ class BankingImporter(BaseImporter, TransactionBuilder):
 
         # For overriding in custom_init()
         self.get_payee = lambda ot: ot.payee
-        self.get_narration = lambda ot: ot.memo
+        self.get_narration = lambda ot: ot.payee
 
         # REQUIRED_CONFIG = {
         #     'account_number'   : 'account number',
         #     'main_account'     : 'destination of import',
         # }
 
+    def account(self, file):
+        return self.reader.account(file)
+
+    def identify(self, file):
+        return self.reader.identify(file)
+
     def initialize(self, file):
-        if not hasattr(self, "file") or self.file != file:
-            self.custom_init()
-            self.initialize_reader(file)
-            self.file = file
+        self.reader.initialize_reader(file)
 
     def build_account_map(self):
         # TODO: Not needed for accounts using smart_importer; make this configurable
@@ -47,9 +50,6 @@ class BankingImporter(BaseImporter, TransactionBuilder):
 
     def match_account_number(self, file_account, config_account):
         return file_account.endswith(config_account)
-
-    def custom_init(self):
-        self.max_rounding_error = 0.04
 
     @staticmethod
     def fields_contain_data(ot, fields):
@@ -98,8 +98,8 @@ class BankingImporter(BaseImporter, TransactionBuilder):
         counter = itertools.count()
         new_entries = []
 
-        self.read_file(file)
-        for ot in self.get_transactions():
+        self.reader.read_file(file)
+        for ot in self.reader.get_transactions():
             if self.skip_transaction(ot):
                 continue
             metadata = new_metadata(file, next(counter))
@@ -116,6 +116,7 @@ class BankingImporter(BaseImporter, TransactionBuilder):
             # narration, so keeping the order unchanged in the call below is important.
 
             # Build transaction entry
+            print(ot)
             entry = Transaction(
                 meta=metadata,
                 date=ot.date.date(),
