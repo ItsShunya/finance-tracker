@@ -48,6 +48,7 @@ class BankingImporter(BaseImporter, TransactionBuilder):
         self.reader_ready = False
 
         # For overriding in custom_init()
+        # TODO: move to getters (dataclass?)
         self.get_payee = lambda ot: ot.payee
         self.get_narration = lambda ot: ot.payee
 
@@ -58,46 +59,89 @@ class BankingImporter(BaseImporter, TransactionBuilder):
 
     @abstractmethod
     def get_balance_statement(self, file=None):
-        """Abstract method for retrieving balance statement."""
+        """Abstract method for retrieving balance statement.
+
+        Args:
+            file: Path to the transactions file in use.
+        """
         pass
 
     def account(self, file: str) -> str:
-        """Return the main account for the importer, handled by the reader."""
+        """Return the main account for the importer, handled by the reader.
+
+        Args:
+            file: Path to the transactions file in use.
+        Returns:
+            The main account for the importer.
+        """
         return self.reader.account(file)
 
     def identify(self, file: str) -> bool:
-        """Return if the reader is able to parse the given file."""
+        """Return if the reader is able to parse the given file.
+
+        Args:
+            file: Path to the transactions file in use.
+        Returns:
+            True if the reader is able to parse the file.
+        """
         return self.reader.identify(file)
 
-    def initialize(self, file: str):
+    def initialize(self, file: str) -> None:
+        """Initialize the reader.
+
+        TODO: Move to reader's __init__.
+
+        Args:
+            file: Path to the transactions file in use.
+        """
         self.reader.initialize_reader(file)
 
-    def build_account_map(self):
-        # TODO: Not needed for accounts using smart_importer; make this configurable
-        # transaction types: {}
-        # self.target_account_map = {
-        #         "directdep": 'TODO',
-        #         "credit":    'TODO',
-        #         "debit":     'TODO',
-        # }
-        pass
+    def match_account_number(
+        self, file_account: str, config_account: str
+    ) -> bool:
+        """Return true if the given account matches the expected.
 
-    def match_account_number(self, file_account, config_account):
+        We many not want to store entire credit card numbers in our config. Or
+        a given file may not contain the full account number. Override this
+        method to handle these cases.
+
+        Args:
+            file_account: Account found on the file.
+            config_account: Account configured in the settings.
+        Returns:
+            True if both accounts match.
+        """
         return file_account.endswith(config_account)
 
-    @staticmethod
-    def fields_contain_data(ot, fields):
-        return all(hasattr(ot, f) and getattr(ot, f) for f in fields)
+    def get_main_account(self, ot: Transaction) -> str:
+        """Return the main account of the importer.
 
-    def get_main_account(self, ot):
-        """Can be overridden by importer"""
+        Args:
+            ot: Transaction to check.
+        Returns:
+            A string representing the main account.
+        """
         return self.config["main_account"]
 
-    def get_target_account(self, ot):
-        """Can be overridden by importer"""
+    def get_target_account(self, ot: Transaction) -> str:
+        """Return the target account of the importer.
+
+        Args:
+            ot: Transaction to check.
+        Returns:
+            A string representing the target account.
+        """
         return self.config.get("target_account")
 
-    def extract_balance(self, file, counter):
+    def extract_balance(self, file: str, counter: int) -> list:
+        """Extract the Balance from the file.
+
+        Args:
+            file: Path to the transactions file in use.
+            counter: Integer
+        Returns:
+            List of entries containing balance.
+        """
         entries = []
 
         for bal in self.get_balance_statement(file=file):
@@ -115,17 +159,28 @@ class BankingImporter(BaseImporter, TransactionBuilder):
                 entries.append(balance_entry)
         return entries
 
-    def extract_custom_entries(self, file, counter):
-        """For custom importers to override"""
-        return []
-
     def get_currency(self, ot):
+        """Return the currency used in the given Transaction.
+
+        Args:
+            ot: Transaction to check.
+        Returns:
+            A string representing the currency.
+        """
         try:
             return ot.currency
         except AttributeError:
             return self.reader.currency
 
-    def extract(self, file, existing_entries=None):
+    def extract(self, file: str, existing_entries=None):
+        """Extract the entries from the given file.
+
+        Args:
+            file: Path to the transactions file in use.
+            existing_entries: List of previous existing entries.
+        Returns
+            Number of new entries.
+        """
         self.initialize(file)
         counter = itertools.count()
         new_entries = []
@@ -135,22 +190,19 @@ class BankingImporter(BaseImporter, TransactionBuilder):
             if self.skip_transaction(ot):
                 continue
             metadata = new_metadata(file, next(counter))
-            # metadata['type'] = ot.type # Optional metadata, useful for debugging #TODO
+            # metadata['type'] = ot.type # Optional metadata, debugging #TODO
             metadata.update(
                 self.build_metadata(
                     file, metatype="transaction", data={"transaction": ot}
                 )
             )
 
-            # description fields: With OFX, ot.payee tends to be the "main" description field,
-            # while ot.memo is optional
-            #
-            # With Beancount, the grammar is (payee, narration). payee is optional, narration is
-            # mandatory. This is a bit unintuitive. In addition, smart_importer relies on
-            # narration, so keeping the order unchanged in the call below is important.
+            # With Beancount the grammar is (payee, narration). payee is always
+            # optional, narration is mandatory. This is a bit unintuitive and
+            # smart_importer relies on narration, so it is important to keep
+            # the order unchanged in the call below.
 
             # Build transaction entry
-            # print(ot)
             entry = Transaction(
                 meta=metadata,
                 date=ot.date.date(),
@@ -178,7 +230,7 @@ class BankingImporter(BaseImporter, TransactionBuilder):
                 else None,
             )
 
-            # smart_importer can fill this in if the importer doesn't override self.get_target_acct()
+            # smart_importer can fill this in if the importer doesn't override
             target_acct = self.get_target_account(ot)
             if target_acct:
                 create_posting(entry, target_acct, None, None)
@@ -187,6 +239,5 @@ class BankingImporter(BaseImporter, TransactionBuilder):
             new_entries.append(entry)
 
         new_entries += self.extract_balance(file, counter)
-        new_entries += self.extract_custom_entries(file, counter)
 
         return new_entries
