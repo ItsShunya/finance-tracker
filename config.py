@@ -1,14 +1,20 @@
+"""Main entrypoint for using beancount. This is the Python file to be executed.
+
+Example usage (with uv):
+- `uv run config.py extract -e ./ledger/main.bean ./documents/ > ./ledger/tmp.bean`
+- `uv run config.py identify ./documents`
+"""
+
 import sys
 from os import path
 
 import beangulp
-from smart_importer import PredictPostings, PredictPayees
+from smart_importer import PredictPayees, PredictPostings
+
+from src.importers import caixabank, n26, paypal, revolut
 
 # beancount doesn't run from this directory
 sys.path.insert(0, path.join(path.dirname(__file__)))
-
-# importers located in the importers directory
-from src.importers import caixabank, paypal, revolut, n26
 
 # Setting this variable provides a list of importer instances.
 CONFIG = [
@@ -23,7 +29,6 @@ CONFIG = [
             )
         )
     ),
-
     PredictPostings().wrap(
         PredictPayees().wrap(
             paypal.Importer(
@@ -34,7 +39,6 @@ CONFIG = [
             )
         )
     ),
-
     PredictPostings().wrap(
         PredictPayees().wrap(
             revolut.Importer(
@@ -45,7 +49,6 @@ CONFIG = [
             )
         )
     ),
-
     PredictPostings().wrap(
         PredictPayees().wrap(
             n26.Importer(
@@ -58,11 +61,10 @@ CONFIG = [
     ),
 ]
 
-HOOKS = [
-]
+HOOKS = []
 
 # Override the header on extracted text (if desired).
-#extract.HEADER = ';; -*- mode: org; mode: beancount; coding: utf-8; -*-\n'
+# extract.HEADER = ';; -*- mode: org; mode: beancount; coding: utf-8; -*-\n'
 
 
 if __name__ == "__main__":

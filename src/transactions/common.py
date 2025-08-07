@@ -1,8 +1,12 @@
-from beancount.core.data import Posting
+"""Common utilities to handle Beancount data such as Transactions."""
+
 from beancount.core.amount import Amount
+from beancount.core.data import Posting
 from beancount.core.number import D, Decimal
 from beancount.core.position import Cost
-from src.util.errors import CustomException
+
+from ..util.errors import CustomException
+
 
 def create_posting(
     entry: object,
@@ -12,10 +16,9 @@ def create_posting(
     amount_number: Decimal | str = None,
     amount_currency: str = None,
     is_price: bool = False,
-    is_cost: bool = False
+    is_cost: bool = False,
 ) -> Posting:
-    """
-    Create a simple posting on the entry, with either a cost (for purchases) or a price (for sell transactions).
+    """Create a simple posting on the entry.
 
     Args:
       entry: The entry instance to add the posting to.
@@ -28,19 +31,20 @@ def create_posting(
       is_cost: A boolean indicating whether the posting is a cost.
 
     Returns:
-      An instance of Posting, and as a side-effect the entry has had its list of
-      postings modified with the new Posting instance.
+      An instance of Posting, and as a side-effect the entry has had its list
+      of postings modified with the new Posting instance.
     """
-
     units = Amount(D(number), currency)
     amount = Amount(D(amount_number), amount_currency)
 
     # Determine whether to set cost or price if needed.
-    cost = Cost(amount.number, amount.currency, None, None) if is_cost else None
+    cost = (
+        Cost(amount.number, amount.currency, None, None) if is_cost else None
+    )
     price = units if is_price else None
 
     posting = Posting(account, units, cost, price, None, None)
-    
+
     if entry is not None:
         entry.postings.append(posting)
 

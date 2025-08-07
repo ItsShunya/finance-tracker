@@ -1,5 +1,7 @@
 """Transaction builder module base class Transaction builders such as the investment, banking, and
-paycheck inherit this."""
+paycheck inherit this.
+"""
+
 from abc import ABC
 
 from beancount.core import data
@@ -37,7 +39,8 @@ class TransactionBuilder(ABC):
                   }
         """
         self.config = {
-            k: v.format(**substs) if isinstance(v, str) else v for k, v in self.config.items()
+            k: v.format(**substs) if isinstance(v, str) else v
+            for k, v in self.config.items()
         }
 
         # Prevent the replacement fields from appearing in the output of
@@ -45,7 +48,9 @@ class TransactionBuilder(ABC):
         if "filing_account" not in self.config:
             kwargs = {k: "" for k in substs}
             filing_account = self.config["main_account"].format(**kwargs)
-            self.config["filing_account"] = self.remove_empty_subaccounts(filing_account)
+            self.config["filing_account"] = self.remove_empty_subaccounts(
+                filing_account
+            )
 
     def add_custom_postings(self, entry, ot):
         """This method is for importers to override. Add arbitrary posting to each entry."""
@@ -54,12 +59,14 @@ class TransactionBuilder(ABC):
     def build_metadata(self, file, metatype=None, data={}):
         """This method is for importers to override. The overridden method can
         look at the metatype ('transaction', 'balance', 'account', 'commodity', etc.)
-        and the data dictionary to return additional metadata"""
-
+        and the data dictionary to return additional metadata
+        """
         # This 'filing_account' is read by a patch to bean-extract so it can output transactions to
         # a file that corresponds with filing_account, when the one-file-per-account feature is
         # used.
         if self.config.get("emit_filing_account_metadata", True) is not False:
-            acct = self.config.get("filing_account", self.config.get("main_account", None))
+            acct = self.config.get(
+                "filing_account", self.config.get("main_account", None)
+            )
             return {"filing_account": acct}
         return {}
