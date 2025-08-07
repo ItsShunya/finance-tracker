@@ -1,0 +1,19 @@
+{
+  // Python language environment
+  "[python]": {
+    "editor.tabSize": 4,
+    "editor.renderWhitespace": "trailing",
+    "editor.formatOnSaveMode": "file",
+    "editor.formatOnType": false,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit",
+      "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "charliermarsh.ruff",
+  },
+  // Extensions
+  "ruff.nativeServer": "on",
+  "beancount.instantAlignment": true,
+  "beancount.separatorColumn": 50,
+}
