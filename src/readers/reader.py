@@ -1,7 +1,9 @@
-from pathlib import Path
 import re
+from abc import ABC, abstractmethod
+from pathlib import Path
 
-class Reader:
+
+class Reader(ABC):
     FILE_EXTS = [""]
     IMPORTER_NAME = "UNKNOWN"
 
@@ -10,8 +12,10 @@ class Reader:
 
     def identify(self, file):
         file_path = Path(file)
-        
-        if file_path.suffix.lower() not in (f".{ext.lower()}" for ext in self.FILE_EXTS):
+
+        if file_path.suffix.lower() not in (
+            f".{ext.lower()}" for ext in self.FILE_EXTS
+        ):
             return False
 
         self.filename_pattern = self.config.get("filename_pattern", "^*")
@@ -57,7 +61,14 @@ class Reader:
     def get_available_cash(self, settlement_fund_balance=0):
         return None
 
+    @abstractmethod
     def get_transactions(self):
-        raise NotImplementedError(
-            "get_transactions() must be implemented by a subclass (usually the reader, but sometimes the importer)."
-        )
+        raise NotImplementedError
+
+    @abstractmethod
+    def date(self, file):
+        raise NotImplementedError
+
+    @abstractmethod
+    def read_file(self, file):
+        raise NotImplementedError

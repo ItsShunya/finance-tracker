@@ -1,9 +1,11 @@
 """Transaction builder module base class Transaction builders such as the investment, banking, and
 paycheck inherit this."""
+from abc import ABC
 
 from beancount.core import data
 
-class TransactionBuilder:
+
+class TransactionBuilder(ABC):
     def skip_transaction(self, ot):
         """For custom importers to override"""
         return False

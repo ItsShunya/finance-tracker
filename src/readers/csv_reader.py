@@ -1,6 +1,3 @@
-"""csv importer module for beancount to be used along with investment/banking/other importer modules in
-beancount_reds_importers."""
-
 import datetime
 import re
 import sys
@@ -41,8 +38,8 @@ class CSVReader(Reader):
         if self.reader_ready:
             self.file_read_done = False
         else:
-                print("header_identifier failed---------------:")
-                print(self.options.header_identifier, cache.get_file(file).head())
+            print("header_identifier failed---------------:")
+            print(self.options.header_identifier, cache.get_file(file).head())
 
     def deep_identify(self, file):
         return re.match(
@@ -158,9 +155,7 @@ class CSVReader(Reader):
         return rdr.rowslice(start, len(rdr))
 
     def read_file(self, file):
-        print('aaaa')
         if not getattr(self, "file_read_done", False):
-            print('bbbb')
             # read file
             rdr = self.read_raw(file)
             rdr = self.prepare_raw_file(rdr)
@@ -174,9 +169,7 @@ class CSVReader(Reader):
             if hasattr(self.options, "skip_comments"):
                 rdr = rdr.skipcomments(self.options.skip_comments)
             rdr = rdr.rowslice(getattr(self, "skip_data_rows", 0), None)
-            print(rdr)
             rdr = self.options.transformation_cb(rdr)
-            print(rdr)
 
             # process table
             rdr = rdr.rename(self.options.header_map)

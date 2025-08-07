@@ -1,22 +1,49 @@
 """Generic banking importer for beancount."""
 
 import itertools
-from collections import namedtuple
+from abc import ABC, abstractmethod
+from typing import NamedTuple
 
 from beancount.core import flags
 from beancount.core.amount import Amount
 from beancount.core.data import Balance, Transaction, new_metadata
 from beangulp import Importer as BaseImporter
 
-from src.transactions.transaction_builder import TransactionBuilder
-from src.transactions.common import create_posting
+from ..transactions.common import create_posting
+from ..transactions.transaction_builder import TransactionBuilder
 
-BalanceStatement = namedtuple('BalanceStatement', ['date', 'amount', 'currency'])
+
+class BalanceStatement(NamedTuple):
+    """Balance Statement representation.
+
+    Attributes:
+        date: Full timestamp of the statement.
+        amount: Number of the statement.
+        currency: String representation of the currency.
+    """
+
+    date: str
+    amount: int
+    currency: str
+
 
 class BankingImporter(BaseImporter, TransactionBuilder):
-    FLAG = flags.FLAG_OKAY
+    """Beangulp Importer abstract class for handling banking transactions.
 
-    def __init__(self, config):
+    This class is non-instantiable and must be used to inherit from when
+    creating a top level importer for any banking institution. The child
+    importer must implement the `get_balance_statement()` method.
+
+    Attributes:
+        config: Dictionary containing custom settings of the importer.
+    """
+
+    def __init__(self, config: dict) -> None:
+        """Initialize the banking importer with a specific set of options.
+
+        Args:
+            config: Dictionary of configurable options.
+        """
         self.config = config
         self.reader_ready = False
 
@@ -29,13 +56,20 @@ class BankingImporter(BaseImporter, TransactionBuilder):
         #     'main_account'     : 'destination of import',
         # }
 
-    def account(self, file):
+    @abstractmethod
+    def get_balance_statement(self, file=None):
+        """Abstract method for retrieving balance statement."""
+        pass
+
+    def account(self, file: str) -> str:
+        """Return the main account for the importer, handled by the reader."""
         return self.reader.account(file)
 
-    def identify(self, file):
+    def identify(self, file: str) -> bool:
+        """Return if the reader is able to parse the given file."""
         return self.reader.identify(file)
 
-    def initialize(self, file):
+    def initialize(self, file: str):
         self.reader.initialize_reader(file)
 
     def build_account_map(self):
@@ -63,8 +97,6 @@ class BankingImporter(BaseImporter, TransactionBuilder):
         """Can be overridden by importer"""
         return self.config.get("target_account")
 
-    # --------------------------------------------------------------------------------
-
     def extract_balance(self, file, counter):
         entries = []
 
@@ -91,7 +123,7 @@ class BankingImporter(BaseImporter, TransactionBuilder):
         try:
             return ot.currency
         except AttributeError:
-            return self.currency
+            return self.reader.currency
 
     def extract(self, file, existing_entries=None):
         self.initialize(file)
@@ -105,7 +137,9 @@ class BankingImporter(BaseImporter, TransactionBuilder):
             metadata = new_metadata(file, next(counter))
             # metadata['type'] = ot.type # Optional metadata, useful for debugging #TODO
             metadata.update(
-                self.build_metadata(file, metatype="transaction", data={"transaction": ot})
+                self.build_metadata(
+                    file, metatype="transaction", data={"transaction": ot}
+                )
             )
 
             # description fields: With OFX, ot.payee tends to be the "main" description field,
@@ -116,11 +150,11 @@ class BankingImporter(BaseImporter, TransactionBuilder):
             # narration, so keeping the order unchanged in the call below is important.
 
             # Build transaction entry
-            print(ot)
+            # print(ot)
             entry = Transaction(
                 meta=metadata,
                 date=ot.date.date(),
-                flag=self.FLAG,
+                flag=flags.FLAG_OKAY,
                 # payee and narration are switched. See the preceding note
                 payee=self.get_narration(ot),
                 narration=self.get_payee(ot),
@@ -136,8 +170,12 @@ class BankingImporter(BaseImporter, TransactionBuilder):
                 main_account,
                 ot.amount,
                 self.get_currency(ot),
-                amount_number = ot.foreign_amount if hasattr(ot, "foreign_amount") else None,
-                amount_currency = ot.foreign_currency if hasattr(ot, "foreign_currency") else None,
+                amount_number=ot.foreign_amount
+                if hasattr(ot, "foreign_amount")
+                else None,
+                amount_currency=ot.foreign_currency
+                if hasattr(ot, "foreign_currency")
+                else None,
             )
 
             # smart_importer can fill this in if the importer doesn't override self.get_target_acct()

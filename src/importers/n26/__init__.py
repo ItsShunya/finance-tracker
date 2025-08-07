@@ -1,35 +1,37 @@
-from src.readers.csv_reader import CSVReader
-from src.transactions.banking import BankingImporter
+from src.readers.csv_reader import CSVReader, CSVReaderOptions
+from src.transactions.banking import BankingImporter, BalanceStatement
 
-
-class Importer(BankingImporter, CSVReader):
+class Importer(BankingImporter):
     IMPORTER_NAME = "N26"
 
-    def custom_init(self):
-        self.max_rounding_error = 0.04
-        self.header_identifier = ""
-        self.column_labels_line = '"Booking Date","Value Date","Partner Name","Partner Iban",Type,"Payment Reference","Account Name","Amount (EUR)","Original Amount","Original Currency","Exchange Rate"'
-        self.date_format = "%Y-%m-%d"
-        self.skip_comments = "# "
+    def __init__(self, config):
+        super().__init__(config)
 
-        self.header_map = {
-            "Booking Date":         "date",
-            #"Currency":             "currency",
-            "Type":                 "type",
-            "Payment Reference":    "payee",
-            "Amount (EUR)":         "amounts",
-        }
+        csv_options = CSVReaderOptions(
+            max_rounding_error=0.04,
+            header_identifier="",
+            column_labels_line='"Booking Date","Value Date","Partner Name","Partner Iban",Type,"Payment Reference","Account Name","Amount (EUR)","Original Amount","Original Currency","Exchange Rate"',
+            date_format="%Y-%m-%d",
+            skip_comments="# ",
+            header_map={
+                "Booking Date":         "date",
+                #"Currency":             "currency",
+                "Type":                 "type",
+                "Payment Reference":    "payee",
+                "Amount (EUR)":         "amounts",
+            },
+            skip_transaction_types=[],
+            transaction_type_map={
+                'Credit Transfer':           'payment',
+                'Instant Savings':           'payment',
+                'Debig Transfer':            'payment',
+            },
+            transformation_cb=self.transformations
+        )
 
-        self.skip_transaction_types = []
+        self.reader = CSVReader(config, csv_options)
 
-        self.transaction_type_map = {
-            'Credit Transfer':           'payment',
-            'Instant Savings':           'payment',
-            'Debig Transfer':            'payment',
-        }
-
-
-    def prepare_table(self, rdr):
+    def transformations(self, rdr):
         rdr = rdr.addfield(
             "currency","EUR"
         )
@@ -39,3 +41,7 @@ class Importer(BankingImporter, CSVReader):
         )
         rdr = rdr.addfield("memo", lambda x: "")
         return rdr
+
+    def get_balance_statement(self, file=None):
+        """Return the balance on the first and last dates"""
+        return []
