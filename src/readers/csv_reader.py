@@ -111,7 +111,7 @@ class CSVReader(Reader):
         self.read_file(file)
         return max(ot.date for ot in self.get_transactions()).date()
 
-    def prepare_raw_file(self, rdr: Any) -> Any:
+    def _prepare_raw_file(self, rdr: Any) -> Any:
         """Transform raw table before processing (optional).
 
         Args:
@@ -122,8 +122,8 @@ class CSVReader(Reader):
         """
         return rdr
 
-    def fix_column_names(self, rdr: Any) -> Any:
-        """Normalize column names by replacing certain characters with underscores.
+    def _fix_column_names(self, rdr: Any) -> Any:
+        """Normalize column names by replacing certain characters with '_'.
 
         Args:
             rdr: PETL table.
@@ -134,18 +134,7 @@ class CSVReader(Reader):
         header_map = {k: re.sub(r"[-/ ]", "_", k) for k in rdr.header()}
         return rdr.rename(header_map)
 
-    def prepare_processed_table(self, rdr: Any) -> Any:
-        """Apply final transformations to the processed table.
-
-        Args:
-            rdr: PETL table after column conversion.
-
-        Returns:
-            Final transformed PETL table.
-        """
-        return rdr
-
-    def convert_columns(self, rdr: Any) -> Any:
+    def _convert_columns(self, rdr: Any) -> Any:
         """Convert known columns to appropriate data types.
 
         Args:
@@ -190,7 +179,7 @@ class CSVReader(Reader):
 
         return rdr
 
-    def read_raw(self, file: str) -> Any:
+    def _read_raw(self, file: str) -> Any:
         """Read a raw CSV file into a PETL table.
 
         Args:
@@ -205,7 +194,7 @@ class CSVReader(Reader):
             delimiter=getattr(self, "csv_delimiter", ","),
         )
 
-    def skip_until_main_table(
+    def _skip_until_main_table(
         self, rdr: Any, col_labels: list[str] | None = None
     ) -> Any:
         """Skip rows until the header row is found.
@@ -234,7 +223,7 @@ class CSVReader(Reader):
             sys.exit(1)
         return rdr.skip(skip)
 
-    def extract_table_with_header(
+    def _extract_table_with_header(
         self, rdr: Any, col_labels: list[str] | None = None
     ) -> Any:
         """Extract the main table with header and data rows.
@@ -246,32 +235,13 @@ class CSVReader(Reader):
         Returns:
             PETL table with only the relevant data rows.
         """
-        rdr = self.skip_until_main_table(rdr, col_labels)
+        rdr = self._skip_until_main_table(rdr, col_labels)
         nrows = len(rdr)
         for n, r in enumerate(rdr):
             if not r or all(i == "" for i in r):
                 nrows = n - 1
                 break
         return rdr.head(nrows)
-
-    def skip_until_row_contains(self, rdr: Any, value: str) -> Any:
-        """Skip rows until a specific value is found.
-
-        Args:
-            rdr: PETL table.
-            value: String value to search for.
-
-        Returns:
-            PETL table starting from the found row.
-        """
-        start = None
-        for n, r in enumerate(rdr):
-            if value in r[0]:
-                start = n
-        if start is None:
-            print(f'Error: table is not as expected. "{value}" row not found.')
-            sys.exit(1)
-        return rdr.rowslice(start, len(rdr))
 
     def read_file(self, file: str) -> None:
         """Read and fully process the CSV file.
@@ -280,19 +250,18 @@ class CSVReader(Reader):
             file: Path to the CSV file.
         """
         if not getattr(self, "file_read_done", False):
-            rdr = self.read_raw(file)
-            rdr = self.prepare_raw_file(rdr)
+            rdr = self._read_raw(file)
+            rdr = self._prepare_raw_file(rdr)
             rdr = rdr.skip(getattr(self, "skip_head_rows", 0))
             rdr = rdr.head(len(rdr) - getattr(self, "skip_tail_rows", 0) - 1)
-            rdr = self.extract_table_with_header(rdr)
+            rdr = self._extract_table_with_header(rdr)
             if hasattr(self.options, "skip_comments"):
                 rdr = rdr.skipcomments(self.options.skip_comments)
             rdr = rdr.rowslice(getattr(self, "skip_data_rows", 0), None)
             rdr = self.options.transformation_cb(rdr)
             rdr = rdr.rename(self.options.header_map)
-            rdr = self.convert_columns(rdr)
-            rdr = self.fix_column_names(rdr)
-            rdr = self.prepare_processed_table(rdr)
+            rdr = self._convert_columns(rdr)
+            rdr = self._fix_column_names(rdr)
             self.rdr = rdr
             self.ifile = file
 
@@ -345,17 +314,3 @@ class CSVReader(Reader):
         except Exception:
             return None
         return date
-
-    def get_row_by_label(self, file: str, label: str) -> list[str]:
-        """Find a row where the first column matches a given label.
-
-        Args:
-            file: Path to the CSV file.
-            label: Label to match in the first column.
-
-        Returns:
-            The matching row as a list of strings.
-        """
-        rdr = self.read_raw(file)
-        rdr = self.prepare_raw_file(rdr)
-        return rdr.select(lambda r: r[0] == label)[1]

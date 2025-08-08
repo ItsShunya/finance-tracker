@@ -153,7 +153,7 @@ class Reader(ABC):
         return self.config["main_account"]
 
     # ────────────────────────────────
-    # Optional hooks — subclasses may override.
+    # Optional public hooks — subclasses may override.
     # ────────────────────────────────
 
     def get_balance_statement(
@@ -182,6 +182,14 @@ class Reader(ABC):
 
         Returns:
             The date of the assertion, or None.
+        """
+        return None
+
+    def get_max_transaction_date(self) -> Any:
+        """Get the maximum transaction date from the reader.
+
+        Returns:
+            The latest transaction date, or None.
         """
         return None
 

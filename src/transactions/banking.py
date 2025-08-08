@@ -56,6 +56,10 @@ class BankingImporter(BaseImporter, TransactionBuilder):
         #     'main_account'     : 'destination of import',
         # }
 
+    # ────────────────────────────────
+    # Required methods.
+    # ────────────────────────────────
+
     @abstractmethod
     def get_balance_statement(self, file: str = None):
         """Abstract method for retrieving balance statement.
@@ -64,6 +68,10 @@ class BankingImporter(BaseImporter, TransactionBuilder):
             file: Path to the transactions file in use.
         """
         pass
+
+    # ────────────────────────────────
+    # Beancount utils — do not override.
+    # ────────────────────────────────
 
     def account(self, file: str) -> str:
         """Return the main account for the importer, handled by the reader.
@@ -84,82 +92,6 @@ class BankingImporter(BaseImporter, TransactionBuilder):
             True if the reader is able to parse the file.
         """
         return self.reader.identify(file)
-
-    def match_account_number(
-        self, file_account: str, config_account: str
-    ) -> bool:
-        """Return true if the given account matches the expected.
-
-        We many not want to store entire credit card numbers in our config. Or
-        a given file may not contain the full account number. Override this
-        method to handle these cases.
-
-        Args:
-            file_account: Account found on the file.
-            config_account: Account configured in the settings.
-        Returns:
-            True if both accounts match.
-        """
-        return file_account.endswith(config_account)
-
-    def get_main_account(self, ot: Transaction) -> str:
-        """Return the main account of the importer.
-
-        Args:
-            ot: Transaction to check.
-        Returns:
-            A string representing the main account.
-        """
-        return self.config["main_account"]
-
-    def get_target_account(self, ot: Transaction) -> str:
-        """Return the target account of the importer.
-
-        Args:
-            ot: Transaction to check.
-        Returns:
-            A string representing the target account.
-        """
-        return self.config.get("target_account")
-
-    def extract_balance(self, file: str, counter: int) -> list[Transaction]:
-        """Extract the Balance from the file.
-
-        Args:
-            file: Path to the transactions file in use.
-            counter: Integer
-        Returns:
-            List of entries containing balance.
-        """
-        entries = []
-
-        for bal in self.get_balance_statement(file=file):
-            if bal:
-                metadata = new_metadata(file, next(counter))
-                metadata.update(self.build_metadata(file, metatype="balance"))
-                balance_entry = Balance(
-                    metadata,
-                    bal.date,
-                    self.config["main_account"],
-                    Amount(bal.amount, self.get_currency(bal)),
-                    None,
-                    None,
-                )
-                entries.append(balance_entry)
-        return entries
-
-    def get_currency(self, ot: Transaction) -> str:
-        """Return the currency used in the given Transaction.
-
-        Args:
-            ot: Transaction to check.
-        Returns:
-            A string representing the currency.
-        """
-        try:
-            return ot.currency
-        except AttributeError:
-            return self.reader.currency
 
     def extract(
         self, file: str, existing_entries: list[Transaction] = None
@@ -205,13 +137,13 @@ class BankingImporter(BaseImporter, TransactionBuilder):
                 postings=[],
             )
 
-            main_account = self.get_main_account(ot)
+            main_account = self.config["main_account"]
 
             create_posting(
                 entry,
                 main_account,
                 ot.amount,
-                self.get_currency(ot),
+                self._get_currency(ot),
                 amount_number=ot.foreign_amount
                 if hasattr(ot, "foreign_amount")
                 else None,
@@ -221,13 +153,77 @@ class BankingImporter(BaseImporter, TransactionBuilder):
             )
 
             # smart_importer can fill this in if the importer doesn't override
-            target_acct = self.get_target_account(ot)
+            target_acct = self.config.get("target_account")
             if target_acct:
                 create_posting(entry, target_acct, None, None)
 
             self.add_custom_postings(entry, ot)
             new_entries.append(entry)
 
-        new_entries += self.extract_balance(file, counter)
+        new_entries += self._extract_balance(file, counter)
 
         return new_entries
+
+    # ────────────────────────────────
+    # Optional public hooks — subclasses may override.
+    # ────────────────────────────────
+
+    def match_account_number(
+        self, file_account: str, config_account: str
+    ) -> bool:
+        """Return true if the given account matches the expected.
+
+        We many not want to store entire credit card numbers in our config. Or
+        a given file may not contain the full account number. Override this
+        method to handle these cases.
+
+        Args:
+            file_account: Account found on the file.
+            config_account: Account configured in the settings.
+        Returns:
+            True if both accounts match.
+        """
+        return file_account.endswith(config_account)
+
+    # ────────────────────────────────
+    # Private API — do not override.
+    # ────────────────────────────────
+
+    def _extract_balance(self, file: str, counter: int) -> list[Transaction]:
+        """Extract the Balance from the file.
+
+        Args:
+            file: Path to the transactions file in use.
+            counter: Integer
+        Returns:
+            List of entries containing balance.
+        """
+        entries = []
+
+        for bal in self.get_balance_statement(file=file):
+            if bal:
+                metadata = new_metadata(file, next(counter))
+                metadata.update(self.build_metadata(file, metatype="balance"))
+                balance_entry = Balance(
+                    metadata,
+                    bal.date,
+                    self.config["main_account"],
+                    Amount(bal.amount, self._get_currency(bal)),
+                    None,
+                    None,
+                )
+                entries.append(balance_entry)
+        return entries
+
+    def _get_currency(self, ot: Transaction) -> str:
+        """Return the currency used in the given Transaction.
+
+        Args:
+            ot: Transaction to check.
+        Returns:
+            A string representing the currency.
+        """
+        try:
+            return ot.currency
+        except AttributeError:
+            return self.reader.currency
