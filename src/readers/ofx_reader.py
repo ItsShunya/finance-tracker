@@ -32,14 +32,12 @@ class OFXReader(Reader):
         FILE_EXTS (list[str]): Supported file extensions for this reader.
         ofx (ofxparse.Ofx): Parsed OFX data.
         ofx_account (Any): Account extracted from parsed OFX data.
-        reader_ready (bool): Whether the reader has been initialized.
         currency (str): Currency code (e.g. 'USD') for the account.
     """
 
     FILE_EXTS: list[str] = ["ofx", "qfx"]
     ofx: Any
     ofx_account: Any
-    reader_ready: bool
     currency: str
 
     def __init__(self, config: dict[str, Any]) -> None:
@@ -50,18 +48,20 @@ class OFXReader(Reader):
         """
         super().__init__(config)
 
-    def initialize_reader(self, file: str) -> None:
+    def try_parse(self, file: str) -> bool:
         """Parse the file and initialize the reader state.
 
         Args:
             file: Path to the OFX/QFX file.
+
+        Returns:
+            True if the file was successfully parsed, False otherwise.
         """
         self.ofx_account = None
-        self.reader_ready = False
         try:
             self.ofx = self.read_file(file)
         except ofxparse.OfxParserException:
-            return
+            return False
 
         for acc in self.ofx.accounts:
             acc_num_field = getattr(self, "account_number_field", "account_id")
@@ -70,9 +70,9 @@ class OFXReader(Reader):
                 self.config["account_number"],
             ):
                 self.ofx_account = acc
-                self.reader_ready = True
 
         self.currency = self.ofx_account.statement.currency.upper()
+        return True
 
     def match_account_number(
         self, file_account: str, config_account: str
@@ -98,7 +98,7 @@ class OFXReader(Reader):
             Statement end date, or None if not available.
         """
         if not getattr(self, "ofx_account", None):
-            self.initialize_reader(file)
+            self.try_parse(file)
         try:
             return self.ofx_account.statement.end_date
         except AttributeError:

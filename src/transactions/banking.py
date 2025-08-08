@@ -45,7 +45,6 @@ class BankingImporter(BaseImporter, TransactionBuilder):
             config: Dictionary of configurable options.
         """
         self.config = config
-        self.reader_ready = False
 
         # For overriding in custom_init()
         # TODO: move to getters (dataclass?)
@@ -85,16 +84,6 @@ class BankingImporter(BaseImporter, TransactionBuilder):
             True if the reader is able to parse the file.
         """
         return self.reader.identify(file)
-
-    def initialize(self, file: str) -> None:
-        """Initialize the reader.
-
-        TODO: Move to reader's __init__.
-
-        Args:
-            file: Path to the transactions file in use.
-        """
-        self.reader.initialize_reader(file)
 
     def match_account_number(
         self, file_account: str, config_account: str
@@ -183,7 +172,6 @@ class BankingImporter(BaseImporter, TransactionBuilder):
         Returns
             Number of new entries.
         """
-        self.initialize(file)
         counter = itertools.count()
         new_entries = []
 

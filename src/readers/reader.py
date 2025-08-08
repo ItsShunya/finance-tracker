@@ -24,7 +24,6 @@ class Reader(ABC):
         IMPORTER_NAME (str): Human-readable name of the importer.
         config (dict[str, Any]): Configuration dictionary for the reader.
         currency (str): Currency set by the reader or config.
-        reader_ready (bool): Indicates whether the reader is initialized.
         filename_pattern (str): Regex pattern to match filenames.
     """
 
@@ -33,7 +32,6 @@ class Reader(ABC):
 
     config: dict[str, Any]
     currency: str
-    reader_ready: bool
     filename_pattern: str
 
     def __init__(self, config: dict[str, Any]) -> None:
@@ -46,7 +44,6 @@ class Reader(ABC):
         self.config = config
         self.currency = config.get("currency", "CURRENCY_NOT_CONFIGURED")
         self.filename_pattern = config.get("filename_pattern", "^*")
-        self.reader_ready = False  # Will be set by initialize_reader()
 
     # ────────────────────────────────
     # Required methods.
@@ -91,6 +88,18 @@ class Reader(ABC):
         """
         raise NotImplementedError
 
+    @abstractmethod
+    def try_parse(self, file: str | Path) -> None:
+        """Try to parse the file and return the result.
+
+        Args:
+            file: Path to the file to be parsed.
+
+        Raises:
+            NotImplementedError: If not overridden.
+        """
+        raise NotImplementedError
+
     # ────────────────────────────────
     # Beancount utils — do not override.
     # ────────────────────────────────
@@ -114,8 +123,10 @@ class Reader(ABC):
         if not re.match(self.filename_pattern, file_path.name):
             return False
 
-        self.initialize_reader(file)
-        return self.reader_ready
+        if not self.try_parse(file):
+            return False
+
+        return True
 
     def filename(self, file: str | Path) -> str:
         """Return the filename from a given path.
@@ -137,7 +148,6 @@ class Reader(ABC):
         Returns:
             Account string.
         """
-        self.initialize_reader(file)
         if "filing_account" in self.config:
             return self.config["filing_account"]
         return self.config["main_account"]

@@ -47,25 +47,19 @@ class CSVReader(Reader):
         super().__init__(config)
         self.options = opt
 
-    def initialize_reader(self, file: str) -> None:
-        """Identify the file and set readiness status."""
-        self.reader_ready = self.deep_identify(file)
-        if self.reader_ready:
-            self.file_read_done = False
+    def try_parse(self, file: str) -> None:
+        """Attemp to parse the file."""
+        if re.match(
+            self.options.header_identifier,
+            cache.get_file(file).head(
+                encoding=getattr(self, "file_encoding", None)
+            ),
+        ):
+            return True
         else:
             print("header_identifier failed---------------:")
             print(self.options.header_identifier, cache.get_file(file).head())
-
-    def deep_identify(self, file: str) -> bool:
-        """Match file header using the configured header_identifier pattern."""
-        return bool(
-            re.match(
-                self.options.header_identifier,
-                cache.get_file(file).head(
-                    encoding=getattr(self, "file_encoding", None)
-                ),
-            )
-        )
+            return False
 
     def date(self, file: str) -> datetime.date:
         """Return the latest transaction date found in the file."""
@@ -197,7 +191,6 @@ class CSVReader(Reader):
             rdr = self.prepare_processed_table(rdr)
             self.rdr = rdr
             self.ifile = file
-            self.file_read_done = True
 
     def get_transactions(self) -> Iterator[Transaction]:
         """Yield valid transactions, skipping those marked to skip."""
