@@ -26,7 +26,7 @@ from beancount.core.data import Transaction
 from beancount.core.number import D
 from beangulp import cache
 
-from src.readers.reader import Reader
+from .reader import Reader
 
 
 @dataclass

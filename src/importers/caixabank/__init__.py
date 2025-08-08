@@ -6,8 +6,8 @@ to parse Caixabank OFX exports into Beancount-compatible transactions.
 
 from typing import Any, Sequence
 
-from src.readers.ofx_reader import OFXReader
-from src.transactions.banking import BalanceStatement, BankingImporter
+from ...readers.ofx_reader import OFXReader
+from ...transactions.banking import BalanceStatement, BankingImporter
 
 
 class CaixabankImporter(BankingImporter):

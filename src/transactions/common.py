@@ -5,7 +5,7 @@ from beancount.core.data import Posting
 from beancount.core.number import D, Decimal
 from beancount.core.position import Cost
 
-from src.util.errors import CustomException
+from ..util.errors import CustomException
 
 
 def create_posting(

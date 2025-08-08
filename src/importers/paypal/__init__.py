@@ -7,8 +7,8 @@ CSVReader with transformation rules and header mappings.
 from collections.abc import Iterator
 from typing import Any
 
-from src.readers.csv_reader import CSVReader, CSVReaderOptions
-from src.transactions.banking import BalanceStatement, BankingImporter
+from ...readers.csv_reader import CSVReader, CSVReaderOptions
+from ...transactions.banking import BalanceStatement, BankingImporter
 
 
 class PaypalImporter(BankingImporter):

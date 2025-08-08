@@ -17,7 +17,7 @@ from beancount.core.data import Transaction
 from bs4 import BeautifulSoup
 from bs4.builder import XMLParsedAsHTMLWarning
 
-from src.readers.reader import Reader
+from .reader import Reader
 
 warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
 

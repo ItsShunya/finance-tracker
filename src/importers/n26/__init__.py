@@ -7,8 +7,8 @@ configured CSVReader.
 
 from typing import Any
 
-from src.readers.csv_reader import CSVReader, CSVReaderOptions
-from src.transactions.banking import BalanceStatement, BankingImporter
+from ...readers.csv_reader import CSVReader, CSVReaderOptions
+from ...transactions.banking import BalanceStatement, BankingImporter
 
 
 class N26Importer(BankingImporter):

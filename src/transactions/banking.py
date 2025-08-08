@@ -9,8 +9,8 @@ from beancount.core.amount import Amount
 from beancount.core.data import Balance, Transaction, new_metadata
 from beangulp import Importer as BaseImporter
 
-from src.transactions.common import create_posting
-from src.transactions.transaction_builder import TransactionBuilder
+from .common import create_posting
+from .transaction_builder import TransactionBuilder
 
 
 class BalanceStatement(NamedTuple):
