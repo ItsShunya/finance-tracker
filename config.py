@@ -20,7 +20,7 @@ sys.path.insert(0, path.join(path.dirname(__file__)))
 CONFIG = [
     PredictPostings().wrap(
         PredictPayees().wrap(
-            caixabank.Importer(
+            caixabank.CaixabankImporter(
                 {
                     "main_account": "Assets:EU:CaixaBank:Checking",
                     "filename_pattern": "^Caixabank-",
@@ -31,7 +31,7 @@ CONFIG = [
     ),
     PredictPostings().wrap(
         PredictPayees().wrap(
-            paypal.Importer(
+            paypal.PaypalImporter(
                 {
                     "main_account": "Assets:Online:Paypal:Checking",
                     "filename_pattern": "^Paypal-",
@@ -41,7 +41,7 @@ CONFIG = [
     ),
     PredictPostings().wrap(
         PredictPayees().wrap(
-            revolut.Importer(
+            revolut.RevolutImporter(
                 {
                     "main_account": "Assets:EU:Revolut:Checking",
                     "filename_pattern": "^Revolut-",
@@ -51,7 +51,7 @@ CONFIG = [
     ),
     PredictPostings().wrap(
         PredictPayees().wrap(
-            n26.Importer(
+            n26.N26Importer(
                 {
                     "main_account": "Assets:EU:N26:Checking",
                     "filename_pattern": "^N26-",

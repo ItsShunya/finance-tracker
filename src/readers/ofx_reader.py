@@ -1,10 +1,19 @@
+"""Reader for parsing and extracting financial data from OFX/QFX files.
+
+This module defines a class for reading OFX/QFX financial statement files and
+extracting transactions, balances, positions, and balance assertion dates for
+automated bookkeeping pipelines using Beancount.
+"""
+
 import datetime
 import warnings
 from collections import namedtuple
 from io import StringIO
+from pathlib import Path
+from typing import Any, Generator
 
 import ofxparse
-#from beangulp import Importer as BaseImporter
+from beancount.core.data import Transaction
 from bs4 import BeautifulSoup
 from bs4.builder import XMLParsedAsHTMLWarning
 
@@ -12,199 +21,243 @@ from src.readers.reader import Reader
 
 warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
 
-class OFXReader(Reader):
-    FILE_EXTS = ["ofx", "qfx"]
 
-    def __init__(self, config):
+class OFXReader(Reader):
+    """Reader for OFX and QFX statement files.
+
+    Parses OFX files and extracts relevant financial information including
+    transactions, positions, and balances. Designed to integrate with Beancount.
+
+    Attributes:
+        FILE_EXTS (list[str]): Supported file extensions for this reader.
+        ofx (ofxparse.Ofx): Parsed OFX data.
+        ofx_account (Any): Account extracted from parsed OFX data.
+        reader_ready (bool): Whether the reader has been initialized.
+        currency (str): Currency code (e.g. 'USD') for the account.
+    """
+
+    FILE_EXTS: list[str] = ["ofx", "qfx"]
+    ofx: Any
+    ofx_account: Any
+    reader_ready: bool
+    currency: str
+
+    def __init__(self, config: dict[str, Any]) -> None:
+        """Initialize the reader with configuration.
+
+        Args:
+            config: Configuration dictionary for the reader.
+        """
         super().__init__(config)
 
-    def initialize_reader(self, file):
+    def initialize_reader(self, file: str) -> None:
+        """Parse the file and initialize the reader state.
+
+        Args:
+            file: Path to the OFX/QFX file.
+        """
         self.ofx_account = None
         self.reader_ready = False
         try:
             self.ofx = self.read_file(file)
         except ofxparse.OfxParserException:
             return
+
         for acc in self.ofx.accounts:
-            # account identifying info fieldname varies across institutions
-            
             acc_num_field = getattr(self, "account_number_field", "account_id")
-            
             if self.match_account_number(
-                getattr(acc, acc_num_field), self.config["account_number"]
+                getattr(acc, acc_num_field),
+                self.config["account_number"],
             ):
                 self.ofx_account = acc
                 self.reader_ready = True
-        print(f"{acc} = {acc_num_field} = {self.ofx_account}")
+
         self.currency = self.ofx_account.statement.currency.upper()
 
-    def match_account_number(self, file_account, config_account):
-        """We many not want to store entire credit card numbers in our config. Or a given ofx may not contain
-        the full account number. Override this method to handle these cases."""
+    def match_account_number(
+        self, file_account: str, config_account: str
+    ) -> bool:
+        """Match the account number from file with the configured account.
+
+        Args:
+            file_account: Account number from the OFX file.
+            config_account: Expected account number from configuration.
+
+        Returns:
+            True if the account numbers match.
+        """
         return file_account == config_account
 
-    def date(self, file):
-        """Get the ending date of the statement."""
+    def date(self, file: str) -> datetime.date | None:
+        """Return the end date of the statement.
+
+        Args:
+            file: Path to the OFX/QFX file.
+
+        Returns:
+            Statement end date, or None if not available.
+        """
         if not getattr(self, "ofx_account", None):
-            self.initialize(file)
+            self.initialize_reader(file)
         try:
             return self.ofx_account.statement.end_date
         except AttributeError:
             return None
 
-    def read_file(self, file):
-        """
-        Read an SGML file, remove all empty tags, and parse it using ofxparse.OfxParser.
+    def read_file(self, file: str) -> Any:
+        """Read and parse an OFX/QFX file.
 
         Args:
-            file: A file-like object representing the SGML file.
+            file: Path to the OFX/QFX file.
 
         Returns:
-            The parsed OFX data.
+            Parsed OFX object.
         """
-        # Read the SGML file content
         with open(file, "r", encoding="utf-8") as fh:
             sgml_content = fh.read()
-        # Preprocess: Remove empty tags using BeautifulSoup
+
         soup = BeautifulSoup(sgml_content, "html.parser")
-        # Find and remove all empty tags
         for tag in soup.find_all():
             if not tag.contents and not tag.attrs:
                 tag.extract()
-        processed_sgml = str(soup)
-        # Parse the processed SGML content using ofxparse.OfxParser
-        file_like_object = StringIO(processed_sgml)
+
+        file_like_object = StringIO(str(soup))
         return ofxparse.OfxParser.parse(file_like_object)
 
-    def get_transactions(self):
+    def get_transactions(self) -> Generator[Transaction, None, None]:
+        """Yield all transactions from the parsed statement.
+
+        Returns:
+            Generator of Transaction objects.
+        """
         yield from self.ofx_account.statement.transactions
 
-    def get_balance_statement(self, file=None):
+    def get_balance_statement(
+        self, file: str | None = None
+    ) -> Generator[Any, None, None]:
+        """Yield account balance for balance assertions.
+
+        Args:
+            file: (Unused) Path to the file.
+
+        Returns:
+            Generator of namedtuples with balance data.
+        """
         if not hasattr(self.ofx_account.statement, "balance"):
             return []
+
         date = self.get_balance_assertion_date()
         if date:
             Balance = namedtuple("Balance", ["date", "amount"])
             yield Balance(date, self.ofx_account.statement.balance)
 
-    def get_balance_positions(self):
+    def get_balance_positions(self) -> Generator[Any, None, None]:
+        """Yield current investment positions if present.
+
+        Returns:
+            Generator of position entries.
+        """
         if not hasattr(self.ofx_account.statement, "positions"):
             return []
         yield from self.ofx_account.statement.positions
 
-    def get_available_cash(self, settlement_fund_balance=0):
-        available_cash = getattr(self.ofx_account.statement, "available_cash", None)
+    def get_available_cash(
+        self, settlement_fund_balance: float = 0
+    ) -> float | None:
+        """Compute available cash after subtracting settlement fund balance.
+
+        Args:
+            settlement_fund_balance: Amount to subtract from available cash.
+
+        Returns:
+            Available cash amount or None if unavailable.
+        """
+        available_cash = getattr(
+            self.ofx_account.statement, "available_cash", None
+        )
         if available_cash is not None:
-            # Some institutions compute available_cash this way. For others, override this method
-            # in the importer
             return available_cash - settlement_fund_balance
         return None
 
-    def get_ofx_end_date(self, field="end_date"):
-        end_date = getattr(self.ofx_account.statement, field, None)
+    def get_ofx_end_date(
+        self, field: str = "end_date"
+    ) -> datetime.date | None:
+        """Return a date from the OFX file (default: statement end date).
 
-        if end_date:
-            # We don't care about timestamps, remove them so they don't affect date calculations
-            return end_date.date()
+        Args:
+            field: Attribute name of the date field.
 
-        return None
-
-    def get_smart_date(self):
-        """We want the latest date we can assert balance on. Let's consider all the dates we have:
-        b--------e-------(s-2)----(s)----(d)
-
-        - b: date of first transaction in this ofx file (end_date)
-        - e: date of last  transaction in this ofx file (max_transaction_date)
-        - s: statement's end date as claimed by the ofx import fileinput (acc.statement.available_balance_date)
-        - d: date of download
-
-        Ideally, we would assert balance end of the day on (s) above. However, banks and credit cards
-        typically have pending transactions that are not included in downloads. When we download
-        the next statement, new transactions may appear prior to the balance assertion date that we
-        generate for this statement. To attempt to avoid this, we set the balance assertion date to
-        (s-2), where 2 is the fudge factor (the time where pending transactions not seen in this
-        statement might occur in the next statement).
-
-        Not all ofx files have all these dates. Hence we compute this date with the best info we
-        have.
+        Returns:
+            Date with time stripped, or None if not found.
         """
+        end_date = getattr(self.ofx_account.statement, field, None)
+        return end_date.date() if end_date else None
 
-        ofx_max_transation_date = self.get_ofx_end_date("end_date")
-        ofx_balance_date1 = self.get_ofx_end_date("available_balance_date")
-        ofx_balance_date2 = self.get_ofx_end_date("balance_date")
-        max_transaction_date = self.get_max_transaction_date()
+    def get_smart_date(self) -> datetime.date | None:
+        """Compute a smart balance assertion date with safety margin.
 
-        if ofx_balance_date1:
-            ofx_balance_date1 -= datetime.timedelta(
-                days=self.config.get("balance_assertion_date_fudge", 2)
-            )
-        if ofx_balance_date2:
-            ofx_balance_date2 -= datetime.timedelta(
-                days=self.config.get("balance_assertion_date_fudge", 2)
-            )
+        Returns:
+            A computed date with a safety margin for pending transactions.
+        """
+        fudge = self.config.get("balance_assertion_date_fudge", 2)
 
         dates = [
-            ofx_max_transation_date,
-            max_transaction_date,
-            ofx_balance_date1,
-            ofx_balance_date2,
+            self.get_ofx_end_date("end_date"),
+            self.get_max_transaction_date(),
+            self._fudged_date("available_balance_date", fudge),
+            self._fudged_date("balance_date", fudge),
         ]
-        if all(
-            v is None for v in dates[:2]
-        ):  # because ofx_balance_date appears even for closed accounts
+
+        if all(d is None for d in dates[:2]):
             return None
 
-        def vd(x):
+        def safe(x: datetime.date | None) -> datetime.date:
             return x if x else datetime.date.min
 
-        return_date = max(*[vd(x) for x in dates])
-        # print("Smart date computation. Dates were: ", dates)
+        return max(safe(d) for d in dates)
 
-        return return_date
+    def get_balance_assertion_date(self) -> datetime.date | None:
+        """Determine the date to assert account balance.
 
-    def get_balance_assertion_date(self):
-        """Choices for the date of the generated balance assertion can be specified in
-        self.config['balance_assertion_date_type'], which can be:
-        - 'smart':            smart date (default)
-        - 'ofx_date':         date specified in ofx file
-        - 'last_transaction': max transaction date
-        - 'today':            today's date
-
-        If you want something else, simply override this method in individual importer
-
-        Finally, we add an additional day, since Beancount balance assertions are defined to occur
-        on the beginning of the assertion date.
+        Returns:
+            The balance assertion date with +1 day offset (Beancount standard).
         """
-
-        date_type_map = {
+        strategy_map = {
             "smart": self.get_smart_date,
             "ofx_date": self.get_ofx_end_date,
             "last_transaction": self.get_max_transaction_date,
             "today": datetime.date.today,
         }
-        date_type = self.config.get("balance_assertion_date_type", "smart")
-        return_date = date_type_map[date_type]()
 
-        if not return_date:
-            return None
-        return return_date + datetime.timedelta(days=1)  # Next day, as defined by Beancount
+        strategy = self.config.get("balance_assertion_date_type", "smart")
+        date = strategy_map[strategy]()
+        return date + datetime.timedelta(days=1) if date else None
 
-    def get_max_transaction_date(self):
-        """
-        Here, we find the last transaction's date. If we use the ofx download date (if our source is ofx), we
-        could end up with a gap in time between the last transaction's date and balance assertion.
-        Pending (but not yet downloaded) transactions in this gap will get downloaded the next time we
-        do a download in the future, and cause the balance assertions to be invalid. This is
-        a problem particularly with credit card accounts and bank accounts.
+    def get_max_transaction_date(self) -> datetime.date | None:
+        """Return the latest transaction date from the file.
 
+        Returns:
+            Latest transaction date or None if not found.
         """
         try:
-            date = max(
+            return max(
                 ot.tradeDate if hasattr(ot, "tradeDate") else ot.date
                 for ot in self.get_transactions()
             ).date()
-        except TypeError:
+        except (TypeError, ValueError):
             return None
-        except ValueError:
-            return None
-        return date
+
+    def _fudged_date(
+        self, field: str, fudge_days: int
+    ) -> datetime.date | None:
+        """Get a date field from the statement and subtract fudge days.
+
+        Args:
+            field: The field name to fetch.
+            fudge_days: Number of days to subtract.
+
+        Returns:
+            Adjusted date or None.
+        """
+        d = self.get_ofx_end_date(field)
+        return d - datetime.timedelta(days=fudge_days) if d else None

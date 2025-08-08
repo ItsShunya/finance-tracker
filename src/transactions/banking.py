@@ -9,8 +9,8 @@ from beancount.core.amount import Amount
 from beancount.core.data import Balance, Transaction, new_metadata
 from beangulp import Importer as BaseImporter
 
-from ..transactions.common import create_posting
-from ..transactions.transaction_builder import TransactionBuilder
+from src.transactions.common import create_posting
+from src.transactions.transaction_builder import TransactionBuilder
 
 
 class BalanceStatement(NamedTuple):
@@ -58,7 +58,7 @@ class BankingImporter(BaseImporter, TransactionBuilder):
         # }
 
     @abstractmethod
-    def get_balance_statement(self, file=None):
+    def get_balance_statement(self, file: str = None):
         """Abstract method for retrieving balance statement.
 
         Args:
@@ -133,7 +133,7 @@ class BankingImporter(BaseImporter, TransactionBuilder):
         """
         return self.config.get("target_account")
 
-    def extract_balance(self, file: str, counter: int) -> list:
+    def extract_balance(self, file: str, counter: int) -> list[Transaction]:
         """Extract the Balance from the file.
 
         Args:
@@ -159,7 +159,7 @@ class BankingImporter(BaseImporter, TransactionBuilder):
                 entries.append(balance_entry)
         return entries
 
-    def get_currency(self, ot):
+    def get_currency(self, ot: Transaction) -> str:
         """Return the currency used in the given Transaction.
 
         Args:
@@ -172,7 +172,9 @@ class BankingImporter(BaseImporter, TransactionBuilder):
         except AttributeError:
             return self.reader.currency
 
-    def extract(self, file: str, existing_entries=None):
+    def extract(
+        self, file: str, existing_entries: list[Transaction] = None
+    ) -> list[Transaction]:
         """Extract the entries from the given file.
 
         Args:
