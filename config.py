@@ -23,7 +23,7 @@ CONFIG = [
             caixabank.CaixabankImporter(
                 {
                     "main_account": "Assets:EU:CaixaBank:Checking",
-                    "filename_pattern": "^Caixabank-",
+                    "filename_pattern": r"^\d{4}-\d{2}-CaixaBank\.ofx$",
                     "account_number": "0101278127",
                 }
             )
@@ -34,7 +34,7 @@ CONFIG = [
             paypal.PaypalImporter(
                 {
                     "main_account": "Assets:Online:Paypal:Checking",
-                    "filename_pattern": "^Paypal-",
+                    "filename_pattern": r"^\d{4}-\d{2}-Paypal\.csv$",
                 }
             )
         )
@@ -44,7 +44,7 @@ CONFIG = [
             revolut.RevolutImporter(
                 {
                     "main_account": "Assets:EU:Revolut:Checking",
-                    "filename_pattern": "^Revolut-",
+                    "filename_pattern": r"^\d{4}-\d{2}-Revolut\.csv$",
                 }
             )
         )
@@ -54,7 +54,7 @@ CONFIG = [
             n26.N26Importer(
                 {
                     "main_account": "Assets:EU:N26:Checking",
-                    "filename_pattern": "^N26-",
+                    "filename_pattern": r"^\d{4}-\d{2}-N26_(Checking|Saving)\.csv$",
                 }
             )
         )
