@@ -71,12 +71,21 @@ To set up the repository for your personal use, follow these steps:
    ```
 
 2. **Install Dependencies**:
-   Ensure you have Python 3.13+ installed. Then, install the required Python packages:
+   The project needs Python 3.13+. Pick one of the following options to install it together with the required Python packages:
 
-   * Using *uv*:
+   * Using *uv* only: uv reads `.python-version` and downloads Python 3.13 itself if it is not already installed.
    ```bash
    uv sync
    ```
+
+   * Using *Nix* + *uv* (requires [flakes](https://wiki.nixos.org/wiki/Flakes)): `nix develop` opens a shell with Python 3.13 and uv pinned by `flake.lock`, and makes uv build the virtual environment from that Python instead of downloading its own. Run every `uv` command from inside this shell.
+   ```bash
+   nix develop
+   uv sync
+   ```
+
+   > [!NOTE]
+   > Both options use the same `.venv`, so stick to one of them per checkout. Running `uv sync` inside `nix develop` replaces a `.venv` created by plain uv. A `.venv` created inside `nix develop` does not work outside of it, because packages with native code (e.g. numpy) need the libraries the Nix shell provides.
 
    * Using *pipenv*:
 
