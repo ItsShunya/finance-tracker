@@ -150,10 +150,27 @@ Fava is a web interface for Beancount that provides an intuitive way to visualiz
 To run your dashboards simply use:
 
 ```
-uv run ledgers/main.bean
+uv run fava ledger/main.bean
 ```
 
 replacing `main.bean` with your main beancount ledger file.
+
+### Custom dashboards
+
+`dashboards/` contains two [fava-dashboards](https://github.com/andreasgerstmayr/fava-dashboards), shown under *Dashboards* in Fava:
+
+- **Overview**: net worth, assets and liabilities over time, income vs. expenses, monthly P&L, savings rate and expenses by category.
+- **Monthly**: where the money went in a single month, compared with previous months, plus top payees, largest expenses and budgets. It shows the latest month by default; use the time filter or the links at the top to pick another one.
+
+`dashboards.yaml` has the layout and `dashboards.js` the queries and charts. Settings like the asset groups are at the top of `dashboards.js`.
+
+The extension is enabled in the ledger with:
+
+```
+1998-01-01 custom "fava-extension" "fava_dashboards" "{
+  'config': '../dashboards/dashboards.yaml'
+}"
+```
 
 ---
 
