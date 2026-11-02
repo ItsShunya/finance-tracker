@@ -21,6 +21,9 @@
             packages = [
               python
               pkgs.uv
+              pkgs.gnumake
+              pkgs.git
+              pkgs.openssh
             ];
 
             # Shared libraries that prebuilt wheels (numpy, scikit-learn...)

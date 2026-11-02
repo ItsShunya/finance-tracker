@@ -111,6 +111,7 @@ To set up the repository for your personal use, follow these steps:
 
 ## How to use
 
+Run `make` to see the shortcuts for the steps below (`nix develop` has everything it needs).
 
 1. **Download Transactions or Statements**:
    Begin by downloading transaction or statement files from your banking institutions. Save these files in the `documents/` directory under appropriate subfolders (e.g., `bank_statements/`).
