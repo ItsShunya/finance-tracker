@@ -1,0 +1,26 @@
+;; Account: Assets:Online:Paypal:Checking
+;; Date: 
+;; Name: 
+
+2026-01-04 * "Express Checkout Payment: Example Shop" "Express Checkout Payment: Example Shop"
+  filing_account: "Assets:Online:Paypal:Checking"
+  Assets:Online:Paypal:Checking  -35.99 EUR
+
+2026-01-04 * "General Card Deposit: " "General Card Deposit: "
+  filing_account: "Assets:Online:Paypal:Checking"
+  Assets:Online:Paypal:Checking  35.99 EUR
+
+2026-01-12 * "PreApproved Payment Bill User Payment: Example Games" "PreApproved Payment Bill User Payment: Example Games"
+  filing_account: "Assets:Online:Paypal:Checking"
+  Assets:Online:Paypal:Checking  -12.00 EUR
+
+2026-01-12 * "General Card Deposit: " "General Card Deposit: "
+  filing_account: "Assets:Online:Paypal:Checking"
+  Assets:Online:Paypal:Checking  12.00 EUR
+
+2026-01-20 * "Payment Refund: Example Shop" "Payment Refund: Example Shop"
+  filing_account: "Assets:Online:Paypal:Checking"
+  Assets:Online:Paypal:Checking  35.99 EUR
+
+2026-01-21 balance Assets:Online:Paypal:Checking                   35.99 EUR
+  filing_account: "Assets:Online:Paypal:Checking"

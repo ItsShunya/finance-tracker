@@ -23,7 +23,7 @@ define extract
 endef
 
 .PHONY: help caixabank-ofx identify extract extract-caixabank extract-paypal \
-	extract-revolut extract-n26 check lint fava deploy restart shell
+	extract-revolut extract-n26 check lint test test-generate fava deploy restart shell
 
 help:
 	@echo "make caixabank-ofx IN=file  convert a CaixaBank CSB43 export to OFX"
@@ -32,6 +32,8 @@ help:
 	@echo "make extract-<bank>         caixabank, paypal, revolut or n26"
 	@echo "make check                  run bean-check on the ledger"
 	@echo "make lint                   run ruff, same as CI"
+	@echo "make test                   check the importers against the samples in tests/"
+	@echo "make test-generate          write the expected output for new samples"
 	@echo "make fava                   run fava locally"
 	@echo "make deploy [REF=branch]    copy the committed ledger and dashboards to the server"
 	@echo "make restart                restart fava on the server"
@@ -64,6 +66,12 @@ check:
 lint:
 	uv run ruff check .
 	uv run ruff format --check .
+
+test:
+	uv run python -m tests.importers test
+
+test-generate:
+	uv run python -m tests.importers generate
 
 fava:
 	uv run fava ledger/main.bean

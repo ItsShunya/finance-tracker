@@ -1,0 +1,27 @@
+;; Account: Assets:EU:CaixaBank:Checking
+;; Date: 
+;; Name: 
+
+2026-01-03 * "SUPERMERCADO EJEMPLO | 0000001SIO" "SUPERMERCADO EJEMPLO | 0000001SIO"
+  filing_account: "Assets:EU:CaixaBank:Checking"
+  Assets:EU:CaixaBank:Checking  -23.45 EUR
+
+2026-01-05 * "SEGUROS EJEMPLO SA" "SEGUROS EJEMPLO SA"
+  filing_account: "Assets:EU:CaixaBank:Checking"
+  Assets:EU:CaixaBank:Checking  -49.90 EUR
+
+2026-01-10 * "NOMINA EMPRESA EJEMPLO SL" "NOMINA EMPRESA EJEMPLO SL"
+  filing_account: "Assets:EU:CaixaBank:Checking"
+  Assets:EU:CaixaBank:Checking  1850.00 EUR
+
+2026-01-15 * "TRANSFERENCIA A AHORRO" "TRANSFERENCIA A AHORRO"
+  filing_account: "Assets:EU:CaixaBank:Checking"
+  Assets:EU:CaixaBank:Checking  -300.00 EUR
+
+2026-01-20 * "CAJERO 0000" "CAJERO 0000"
+  filing_account: "Assets:EU:CaixaBank:Checking"
+  Assets:EU:CaixaBank:Checking  -60.00 EUR
+
+2026-01-31 * "COMISION MANTENIMIENTO" "COMISION MANTENIMIENTO"
+  filing_account: "Assets:EU:CaixaBank:Checking"
+  Assets:EU:CaixaBank:Checking  -2.00 EUR

@@ -1,0 +1,3 @@
+"Booking Date","Value Date","Partner Name","Partner Iban",Type,"Payment Reference","Account Name","Amount (EUR)","Original Amount","Original Currency","Exchange Rate"
+2026-01-01,2026-01-01,,,Interest,,Savings,12.34,,,
+2026-01-01,2026-01-01,,,Tax,,Savings,-2.34,,,

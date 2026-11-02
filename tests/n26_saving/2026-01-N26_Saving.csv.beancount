@@ -1,0 +1,11 @@
+;; Account: Assets:EU:N26:Saving
+;; Date: 
+;; Name: 
+
+2026-01-01 * 
+  filing_account: "Assets:EU:N26:Saving"
+  Assets:EU:N26:Saving  12.34 EUR
+
+2026-01-01 * 
+  filing_account: "Assets:EU:N26:Saving"
+  Assets:EU:N26:Saving  -2.34 EUR

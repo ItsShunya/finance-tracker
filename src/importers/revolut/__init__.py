@@ -81,17 +81,23 @@ class RevolutImporter(BankingImporter):
     def get_balance_statement(
         self, file: str | None = None
     ) -> Iterator[BalanceStatement]:
-        """Yield a balance statement from the first CSV row.
+        """Yield the closing balance of each currency in the file.
 
-        The balance corresponds to the earliest transaction date found.
+        Rows are oldest first, so the last row of each currency holds its
+        balance after the last transaction.
 
         Args:
             file: Unused. Included for interface compatibility.
 
         Yields:
-            A single BalanceStatement instance.
+            One BalanceStatement per currency.
         """
         date = self.reader.get_balance_assertion_date()
-        if date:
-            first = self.reader.rdr.namedtuples()[0]
-            yield BalanceStatement(date, first.balance, first.currency)
+        if not date:
+            return
+        balances = {}
+        for row in self.reader.rdr.namedtuples():
+            if row.balance is not None:
+                balances[row.currency] = row.balance
+        for currency, balance in balances.items():
+            yield BalanceStatement(date, balance, currency)

@@ -24,10 +24,8 @@ jobs:
           uv run ruff check .
           uv run ruff format --check .
 
-      # ledger/ and documents/ are private, so this only checks that
-      # config.py and the importers load.
-      - name: Load importers
-        run: uv run config.py identify tests
+      - name: Importer tests
+        run: uv run python -m tests.importers test
 
   docker:
     name: Build image
@@ -50,7 +48,6 @@ jobs:
       - name: Flake check
         run: nix flake check --all-systems
 
-      # numpy and friends need the libraries the shell provides, so make sure
-      # the importers still load from inside it.
-      - name: Load importers in the dev shell
-        run: nix develop --command bash -c "uv sync --locked && uv run config.py identify tests && make help"
+      # numpy and friends need the libraries the shell provides.
+      - name: Importer tests in the dev shell
+        run: nix develop --command bash -c "uv sync --locked && make test"

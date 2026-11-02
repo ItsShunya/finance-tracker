@@ -1,0 +1,15 @@
+;; Account: Assets:EU:N26:Checking
+;; Date: 
+;; Name: 
+
+2026-01-03 * "dinner" "dinner"
+  filing_account: "Assets:EU:N26:Checking"
+  Assets:EU:N26:Checking  -25.00 EUR
+
+2026-01-09 * "concert tickets" "concert tickets"
+  filing_account: "Assets:EU:N26:Checking"
+  Assets:EU:N26:Checking  60.00 EUR
+
+2026-01-18 * 
+  filing_account: "Assets:EU:N26:Checking"
+  Assets:EU:N26:Checking  -39.90 EUR

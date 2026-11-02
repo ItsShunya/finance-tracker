@@ -16,51 +16,44 @@ from src.importers import caixabank, n26, paypal, revolut
 # beancount doesn't run from this directory
 sys.path.insert(0, path.join(path.dirname(__file__)))
 
-# Setting this variable provides a list of importer instances.
+# The tests in tests/ run these directly, without smart_importer.
+IMPORTERS = {
+    "caixabank": caixabank.CaixabankImporter(
+        {
+            "main_account": "Assets:EU:CaixaBank:Checking",
+            "filename_pattern": r"^\d{4}-\d{2}-CaixaBank\.ofx$",
+            "account_number": "0101278127",
+        }
+    ),
+    "paypal": paypal.PaypalImporter(
+        {
+            "main_account": "Assets:Online:Paypal:Checking",
+            "filename_pattern": r"^\d{4}-\d{2}-Paypal\.csv$",
+        }
+    ),
+    "revolut": revolut.RevolutImporter(
+        {
+            "main_account": "Assets:EU:Revolut:Checking",
+            "filename_pattern": r"^\d{4}-\d{2}-Revolut\.csv$",
+        }
+    ),
+    "n26_checking": n26.N26Importer(
+        {
+            "main_account": "Assets:EU:N26:Checking",
+            "filename_pattern": r"^\d{4}-\d{2}-N26_Checking\.csv$",
+        }
+    ),
+    "n26_saving": n26.N26Importer(
+        {
+            "main_account": "Assets:EU:N26:Saving",
+            "filename_pattern": r"^\d{4}-\d{2}-N26_Saving\.csv$",
+        }
+    ),
+}
+
 CONFIG = [
-    PredictPostings().wrap(
-        PredictPayees().wrap(
-            caixabank.CaixabankImporter(
-                {
-                    "main_account": "Assets:EU:CaixaBank:Checking",
-                    "filename_pattern": r"^\d{4}-\d{2}-CaixaBank\.ofx$",
-                    "account_number": "0101278127",
-                }
-            )
-        )
-    ),
-    PredictPostings().wrap(
-        PredictPayees().wrap(
-            paypal.PaypalImporter(
-                {
-                    "main_account": "Assets:Online:Paypal:Checking",
-                    "filename_pattern": r"^\d{4}-\d{2}-Paypal\.csv$",
-                }
-            )
-        )
-    ),
-    PredictPostings().wrap(
-        PredictPayees().wrap(
-            revolut.RevolutImporter(
-                {
-                    "main_account": "Assets:EU:Revolut:Checking",
-                    "filename_pattern": r"^\d{4}-\d{2}-Revolut\.csv$",
-                }
-            )
-        )
-    ),
-    PredictPostings().wrap(
-        PredictPayees().wrap(
-            n26.N26Importer(
-                {
-                    "main_account": "Assets:EU:N26:Checking",
-                    "filename_pattern": (
-                        r"^\d{4}-\d{2}-N26_(Checking|Saving)\.csv$"
-                    ),
-                }
-            )
-        )
-    ),
+    PredictPostings().wrap(PredictPayees().wrap(importer))
+    for importer in IMPORTERS.values()
 ]
 
 HOOKS = []

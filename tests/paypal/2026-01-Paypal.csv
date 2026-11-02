@@ -1,0 +1,7 @@
+"Date","Time","Time Zone","Description","Currency","Gross ","Fee ","Net","Balance","Transaction ID","From Email Address","Name","Bank Name","Bank Account","Shipping and Handling Amount","Sales Tax","Invoice ID","Reference Txn ID"
+"4/1/2026","10:15:00","Europe/Berlin","Express Checkout Payment","EUR","-35.99","0.00","-35.99","-35.99","0AAAAAAAAAAAAAAA1","shop@example.com","Example Shop","","","0.00","0.00","",""
+"4/1/2026","10:15:00","Europe/Berlin","General Card Deposit","EUR","35.99","0.00","35.99","0.00","0AAAAAAAAAAAAAAA2","","","","","0.00","0.00","","0AAAAAAAAAAAAAAA1"
+"12/1/2026","18:40:12","Europe/Berlin","General Authorization - Pending","EUR","-12.00","0.00","-12.00","0.00","0AAAAAAAAAAAAAAA3","","Example Games","","","0.00","0.00","",""
+"12/1/2026","18:40:12","Europe/Berlin","PreApproved Payment Bill User Payment","EUR","-12.00","0.00","-12.00","-12.00","0AAAAAAAAAAAAAAA4","billing@example.com","Example Games","","","0.00","0.00","",""
+"12/1/2026","18:40:12","Europe/Berlin","General Card Deposit","EUR","12.00","0.00","12.00","0.00","0AAAAAAAAAAAAAAA5","","","","","0.00","0.00","","0AAAAAAAAAAAAAAA4"
+"20/1/2026","09:02:31","Europe/Berlin","Payment Refund","EUR","35.99","0.00","35.99","35.99","0AAAAAAAAAAAAAAA6","shop@example.com","Example Shop","","","0.00","0.00","",""

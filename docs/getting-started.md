@@ -42,6 +42,8 @@ The importers only pick up files matching the `filename_pattern` in `config.py`,
 
 Remove the banks you don't use. For a new bank, copy the closest one in `src/importers/` (CSV or OFX) and change the column mapping. Then add it to `config.py`.
 
+Each importer has an anonymized sample statement in `tests/<importer>/`, next to the `.beancount` file it should produce. `make test` checks them, and CI runs it too. For a new importer, add its key to `IMPORTERS` in `config.py`, drop a sample (fake names, amounts and IDs) in `tests/<key>/`, run `make test-generate` and review the output before committing it.
+
 Each importer is wrapped with smart_importer's `PredictPostings` and `PredictPayees`, which guess the other side of each transaction from your existing ledger. On the first import there's nothing to learn from, so you'll fill in everything by hand.
 
 ## 4. Ledger

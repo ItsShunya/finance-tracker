@@ -1,0 +1,6 @@
+Type,Product,Started Date,Completed Date,Description,Amount,Fee,Currency,State,Balance
+Topup,Current,2026-01-02 19:26:05,2026-01-02 19:26:06,Google Pay top-up by *0000,100.00,0.00,EUR,COMPLETED,150.00
+Card Payment,Current,2026-01-05 13:09:14,2026-01-06 05:50:40,Example Museum,-15.00,0.00,EUR,COMPLETED,135.00
+Card Payment,Current,2026-01-07 20:31:44,2026-01-08 06:10:02,Example Restaurant,-42.30,0.00,EUR,COMPLETED,92.70
+Transfer,Current,2026-01-15 11:00:00,2026-01-15 11:00:01,To John Doe,-20.00,0.00,EUR,COMPLETED,72.70
+Card Payment,Current,2026-01-20 08:12:09,2026-01-21 04:00:00,Example Shop London,-10.00,0.50,EUR,COMPLETED,62.20

@@ -1,0 +1,26 @@
+;; Account: Assets:EU:Revolut:Checking
+;; Date: 
+;; Name: 
+
+2026-01-02 * "Google Pay top-up by *0000" "Google Pay top-up by *0000"
+  filing_account: "Assets:EU:Revolut:Checking"
+  Assets:EU:Revolut:Checking  100.00 EUR
+
+2026-01-05 * "Example Museum" "Example Museum"
+  filing_account: "Assets:EU:Revolut:Checking"
+  Assets:EU:Revolut:Checking  -15.00 EUR
+
+2026-01-07 * "Example Restaurant" "Example Restaurant"
+  filing_account: "Assets:EU:Revolut:Checking"
+  Assets:EU:Revolut:Checking  -42.30 EUR
+
+2026-01-15 * "To John Doe" "To John Doe"
+  filing_account: "Assets:EU:Revolut:Checking"
+  Assets:EU:Revolut:Checking  -20.00 EUR
+
+2026-01-20 * "Example Shop London" "Example Shop London"
+  filing_account: "Assets:EU:Revolut:Checking"
+  Assets:EU:Revolut:Checking  -10.50 EUR
+
+2026-01-21 balance Assets:EU:Revolut:Checking                      62.20 EUR
+  filing_account: "Assets:EU:Revolut:Checking"
