@@ -1,7 +1,7 @@
 """Main entrypoint for using beancount. This is the Python file to be executed.
 
 Example usage (with uv):
-- `uv run config.py extract -e ./ledger/main.bean ./documents/ > ./ledger/tmp.bean`
+- `uv run config.py extract -e ./ledger/main.bean ./documents/`
 - `uv run config.py identify ./documents`
 """
 
@@ -54,7 +54,9 @@ CONFIG = [
             n26.N26Importer(
                 {
                     "main_account": "Assets:EU:N26:Checking",
-                    "filename_pattern": r"^\d{4}-\d{2}-N26_(Checking|Saving)\.csv$",
+                    "filename_pattern": (
+                        r"^\d{4}-\d{2}-N26_(Checking|Saving)\.csv$"
+                    ),
                 }
             )
         )

@@ -41,7 +41,7 @@ class CSVReaderOptions:
         skip_comments: String indicating comment lines to skip.
         header_map: Mapping from CSV column names to internal names.
         skip_transaction_types: List of transaction types to skip.
-        transaction_type_map: Mapping of raw transaction type strings to normalized types.
+        transaction_type_map: Maps raw transaction types to normalized ones.
         transformation_cb: Callback for applying custom table transformations.
     """
 
@@ -73,7 +73,7 @@ class CSVReader(Reader):
 
         Args:
             config: Configuration dictionary for the reader.
-            opt: CSVReaderOptions instance with parsing and transformation rules.
+            opt: CSVReaderOptions with parsing and transformation rules.
         """
         super().__init__(config)
         self.options = opt
@@ -85,7 +85,7 @@ class CSVReader(Reader):
             file: Path to the file to check.
 
         Returns:
-            True if the file header matches the identifier pattern, False otherwise.
+            True if the file header matches the identifier pattern.
         """
         if re.match(
             self.options.header_identifier,
@@ -294,7 +294,7 @@ class CSVReader(Reader):
         """Get the balance assertion date.
 
         Returns:
-            One day after the latest transaction date, or None if no date found.
+            One day after the latest transaction date, or None.
         """
         if not self.get_max_transaction_date():
             return None

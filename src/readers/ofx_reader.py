@@ -26,7 +26,7 @@ class OFXReader(Reader):
     """Reader for OFX and QFX statement files.
 
     Parses OFX files and extracts relevant financial information including
-    transactions, positions, and balances. Designed to integrate with Beancount.
+    transactions, positions, and balances for Beancount.
 
     Attributes:
         FILE_EXTS (list[str]): Supported file extensions for this reader.

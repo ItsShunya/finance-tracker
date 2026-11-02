@@ -14,7 +14,7 @@ from beancount.core.data import EMPTY_SET, Meta, Transaction
 
 
 class TransactionBuilder(ABC):
-    """Base class for building or transforming transactions in custom importers.
+    """Base class for building or transforming importer transactions.
 
     Subclasses can override the methods defined here to apply custom behavior
     when importing financial transactions, such as filtering entries, tagging,
