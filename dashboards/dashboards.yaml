@@ -35,12 +35,12 @@ dashboards:
       - title: Overview
         chart: overviewKpis
         <<: *kpis
-        link: ../../balance_sheet/
+        link: ../../balance_sheet/?conversion=at_value
 
       - title: Net Worth, Assets & Liabilities
         chart: netWorthTrend
         <<: *full
-        link: ../../balance_sheet/
+        link: ../../balance_sheet/?conversion=at_value
 
       - title: Assets by Type
         chart: assetsComposition
